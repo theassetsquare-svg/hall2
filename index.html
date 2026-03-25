@@ -160,5 +160,6 @@ try{document.querySelectorAll(".quiz-opt").forEach(function(b){b.addEventListene
 try{document.getElementById("share-btn").addEventListener("click",function(){var s=this;if(navigator.share)navigator.share({title:"일산명월관요정",text:"문 열고 들어서면 시간이 멈춘다",url:location.href});else navigator.clipboard.writeText(location.href).then(function(){s.textContent="링크 복사 완료!";setTimeout(function(){s.textContent="카카오톡 공유"},2e3)})})}catch(e){}
 })();
 </script>
+<script src="/engage.js" defer></script>
 </body>
 </html>

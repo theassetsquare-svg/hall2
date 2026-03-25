@@ -77,5 +77,6 @@
 (function(){"use strict";var p=document.getElementById("progress"),t=false;window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(function(){var h=document.documentElement;p.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";t=false});t=true}});
 try{document.getElementById("share-btn").addEventListener("click",function(){var s=this;if(navigator.share)navigator.share({title:document.title,url:location.href});else navigator.clipboard.writeText(location.href).then(function(){s.textContent="링크 복사 완료!";setTimeout(function(){s.textContent="카카오톡 공유"},2e3)})})}catch(e){}})();
 </script>
+<script src="/engage.js" defer></script>
 </body>
 </html>
