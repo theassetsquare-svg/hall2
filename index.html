@@ -1,14 +1,314 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일산명월관요정 | 문 열고 들어서면 시간이 멈춘다</title>
+<meta name="description" content="한정식이라길래 그냥 밥집인 줄 알았다. 아니었다. 나무 향, 가야금 소리, 코스 요리. 한 번 가면 잊을 수 없는 그곳.">
+<link rel="canonical" href="https://hall2-cua.pages.dev/">
+<meta property="og:title" content="일산명월관요정 | 문 열고 들어서면 시간이 멈춘다">
+<meta property="og:description" content="한정식이라길래 그냥 밥집인 줄 알았다. 아니었다. 나무 향, 가야금 소리, 코스 요리. 한 번 가면 잊을 수 없는 그곳.">
+<meta property="og:image" content="https://hall2-cua.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://hall2-cua.pages.dev/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="일산명월관요정 | 문 열고 들어서면 시간이 멈춘다">
+<meta name="twitter:description" content="한정식이라길래 그냥 밥집인 줄 알았다. 아니었다.">
+<meta name="twitter:image" content="https://hall2-cua.pages.dev/og-image.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":["NightClub","LocalBusiness"],"name":"일산명월관요정","description":"일산에서 전통 한정식과 가야금 공연을 경험하는 요정","url":"https://hall2-cua.pages.dev/","telephone":"010-3695-4929","address":{"@type":"PostalAddress","addressLocality":"일산","addressRegion":"경기도","addressCountry":"KR"},"image":"https://hall2-cua.pages.dev/og-image.png","priceRange":"$$$$","openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"17:00","closes":"02:00"}}
+</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d0d;--surface:#1a1512;--card:#241e18;--text:#f5f0e8;--dim:#a89b8c;--gold:#C9A96E;--red:#8B0000;--green:#22C55E}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:9999;width:0;transition:width .15s linear;will-change:width}
+.hero{text-align:center;padding:72px 20px 56px;background:linear-gradient(180deg,var(--red) 0%,#1a0a05 60%,var(--bg) 100%)}
+.hero h1{font-size:2.1rem;color:var(--gold);margin-bottom:14px;letter-spacing:3px;font-weight:800}
+.hero-sub{font-size:1.15rem;color:var(--dim);font-weight:300;letter-spacing:1px}
+.counter{text-align:center;padding:10px 20px;font-size:.82rem;color:var(--dim);opacity:.7}
+.story{max-width:680px;margin:0 auto;padding:20px 24px}
+.story p{margin-bottom:18px;font-size:1.05rem;word-break:keep-all;color:var(--text)}
+.story .accent{color:var(--gold);font-weight:600}
+.story .whisper{color:var(--dim);font-size:.92rem;font-style:italic}
+.mood-img{width:calc(100% - 48px);max-width:680px;margin:24px auto;height:220px;border-radius:14px;display:block;position:relative;overflow:hidden}
+.mood-1{background:linear-gradient(135deg,#2d1810,#5a3a2a 30%,#7a5540 50%,#3d2215 75%,#1a0e08)}
+.mood-2{background:linear-gradient(135deg,#1a1510,#4a3520 25%,#C9A96E 45%,#b8944f 55%,#4a3520 75%,#1a1510)}
+.mood-3{background:linear-gradient(135deg,#0d0d1a,#1a1535 25%,#3d2a6a 45%,#C9A96E 50%,#3d2a6a 55%,#1a1535 75%,#0d0d1a)}
+.mood-img::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,.4) 100%)}
+.mood-label{position:absolute;bottom:14px;left:18px;font-size:.78rem;color:var(--dim);z-index:1;letter-spacing:1px}
+.divider{width:40px;height:2px;background:var(--gold);margin:32px auto;opacity:.5}
+.vote{max-width:680px;margin:36px auto;padding:28px 24px;text-align:center}
+.vote h3{color:var(--gold);margin-bottom:18px;font-size:1.15rem}
+.vote-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.vote-btn{padding:14px 28px;border:2px solid var(--gold);background:transparent;color:var(--text);border-radius:14px;cursor:pointer;font-size:.95rem;transition:all .25s;font-family:inherit}
+.vote-btn:hover,.vote-btn.selected{background:var(--gold);color:#000}
+.vote-result{margin-top:14px;color:var(--dim);font-size:.88rem;min-height:22px}
+.vote-bar{height:6px;background:var(--card);border-radius:3px;margin-top:10px;overflow:hidden}
+.vote-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .6s ease}
+.quiz{max-width:680px;margin:36px auto;padding:28px 24px}
+.quiz h3{color:var(--gold);margin-bottom:22px;text-align:center;font-size:1.15rem}
+.quiz-q{margin-bottom:20px;padding:20px;background:var(--card);border-radius:14px}
+.quiz-q p{margin-bottom:14px;font-weight:700;font-size:.98rem}
+.quiz-opt{display:block;width:100%;padding:11px 16px;margin:5px 0;border:1px solid #333;background:var(--surface);color:var(--text);border-radius:10px;cursor:pointer;text-align:left;font-size:.92rem;transition:all .2s;font-family:inherit}
+.quiz-opt:hover{border-color:var(--gold)}
+.quiz-opt.correct{background:rgba(34,197,94,.15);border-color:#22C55E;cursor:default}
+.quiz-opt.wrong{background:rgba(239,68,68,.15);border-color:#EF4444;cursor:default}
+.secret{max-width:680px;margin:36px auto;padding:28px 24px;text-align:center;opacity:0;transform:translateY(24px);transition:all .7s ease}
+.secret.visible{opacity:1;transform:translateY(0)}
+.secret h3{color:var(--gold);margin-bottom:14px;font-size:1.1rem}
+.secret p{color:var(--dim);font-size:.95rem;line-height:1.8}
+.next{max-width:680px;margin:36px auto;padding:28px 24px}
+.next h3{color:var(--gold);margin-bottom:18px;text-align:center;font-size:1.1rem}
+.next-card{display:block;padding:16px 20px;margin:10px 0;background:var(--card);border-radius:14px;color:var(--text);text-decoration:none;transition:transform .2s,background .2s;border:1px solid transparent}
+.next-card:hover{transform:translateX(6px);border-color:var(--gold);background:var(--surface)}
+.next-card strong{display:block;margin-bottom:4px;font-size:.95rem}
+.next-card span{color:var(--dim);font-size:.82rem}
+.share-wrap{text-align:center;padding:8px 24px 20px}
+.share-btn{display:inline-block;padding:12px 28px;background:#FEE500;color:#191600;border:none;border-radius:14px;cursor:pointer;font-size:.92rem;font-weight:700;font-family:inherit;transition:opacity .2s}
+.share-btn:hover{opacity:.85}
+footer{text-align:center;padding:36px 24px 130px;color:var(--dim);font-size:.82rem;line-height:2}
+footer a{color:var(--gold);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.call-btn{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);max-width:400px;width:calc(100% - 40px);padding:15px 20px;background:var(--green);color:#fff;text-align:center;text-decoration:none;border-radius:16px;font-size:1.08rem;font-weight:700;z-index:9998;box-shadow:0 4px 24px rgba(34,197,94,.35);letter-spacing:.5px;transition:box-shadow .2s}
+.call-btn:hover{box-shadow:0 6px 32px rgba(34,197,94,.5)}
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.fade-in.show{opacity:1;transform:translateY(0)}
+@media(max-width:480px){.hero h1{font-size:1.65rem}.hero{padding:56px 18px 44px}.mood-img{height:170px;margin:18px 20px;width:calc(100% - 40px)}.story{padding:16px 20px}.vote-btn{padding:12px 20px;font-size:.88rem}}
+</style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+<div id="progress" aria-hidden="true"></div>
+
+<header class="hero">
+  <h1>일산명월관요정</h1>
+  <p class="hero-sub">문 열고 들어서면, 시간이 멈춘다</p>
+</header>
+
+<div class="counter" aria-live="polite">오늘 <strong id="visitor-count">0</strong>명이 이 글을 읽었습니다</div>
+
+<main>
+<article>
+
+<section class="story fade-in">
+  <p>일산명월관요정.</p>
+  <p>한정식이라길래 그냥 밥집인 줄 알았다. 아니었다.</p>
+  <p>문을 열었다. 나무 향이 코끝을 스쳤다. 어디선가 가야금 소리가 흘러나왔다. 로비가 아니라 조선시대 양반집 마루에 서 있는 기분이었다. 솔직히 말하면, 좀 소름 돋았다.</p>
+  <p>안내를 받아 방으로 들어갔다. 미닫이문을 열자 방 안 가득 은은한 조명이 퍼져 있었다. 벽에 걸린 산수화, 바닥의 한지 장판. <span class="whisper">"여기가 일산 맞아?"</span> 속으로 물었다.</p>
+</section>
+
+<div class="mood-img mood-1" role="img" aria-label="한옥 실내 분위기">
+  <span class="mood-label">ᅳ 고즈넉한 실내</span>
+</div>
+
+<section class="story fade-in">
+  <p>자리에 앉았다. 음식이 나오기 시작했다.</p>
+  <p>하나. 둘. 셋.</p>
+  <p>멈추질 않았다.</p>
+  <p>전복죽으로 시작해서 생선회, 갈비찜, 잡채, 전, 나물. 하나하나 정성이 보였다. 대충 만든 게 하나도 없었다. 마지막에 솥밥이 나왔을 때는 배가 터질 것 같았는데도 한 숟갈 더 떴다. 그 고소한 누룽지 맛. <span class="accent">아직도 생각난다.</span></p>
+</section>
+
+<div class="mood-img mood-2" role="img" aria-label="한정식 코스 요리">
+  <span class="mood-label">ᅳ 열다섯 가지 코스</span>
+</div>
+
+<section class="story fade-in">
+  <p>근데 진짜 놀란 건 음식이 아니었다.</p>
+  <p>공연이 시작됐다. 가야금 연주. 처음엔 <span class="whisper">"에이, 그냥 배경음악이겠지"</span> 했다. 아니었다. 연주자가 눈앞에서 줄을 튕겼다. 소리가 가슴을 울렸다. <span class="accent">통통. 댕댕.</span> 이게 사람 손에서 나오는 소리라고?</p>
+  <p>옆에 있던 친구가 조용히 눈을 감았다. 나도 감았다. 그 순간만큼은 밖에 뭐가 있는지 잊었다.</p>
+</section>
+
+<div class="mood-img mood-3" role="img" aria-label="가야금 연주 공연">
+  <span class="mood-label">ᅳ 가야금이 울리는 밤</span>
+</div>
+
+<section class="story fade-in">
+  <p>술도 한잔 했다. 정종이 작은 도자기 잔에 따라졌다. 차갑지도 뜨겁지도 않은 딱 그 온도. 한 모금 넘기니까 목이 따뜻해졌다. <span class="whisper">"이래서 옛날 사람들이 풍류를 즐겼구나."</span> 진심으로 그 생각이 들었다.</p>
+  <p>솔직히 단점도 있다. 주차가 좀 불편하다. 자리가 한정되어 있어서 예약 없이 가면 못 들어갈 수도 있다. 가격? 싸지는 않다. 근데 한 번 앉아보면 안다. 이 값이 아깝지 않다는 걸.</p>
+  <p>내가 금요일 저녁에 갔는데, 옆 방에서 웃음소리가 끊이지 않았다. 회식인 것 같았다. 그 사람들도 나처럼 처음엔 <span class="whisper">"그냥 밥집"</span>이라고 생각하고 왔을까. 그리고 나가면서 <span class="accent">"다음에 또 와야지"</span>라고 말했을까.</p>
+  <p>분위기? 말이 필요 없다. 직접 가봐야 안다.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- VS 투표 -->
+<section class="vote fade-in" aria-label="투표">
+  <h3>모임 장소, 당신의 선택은?</h3>
+  <div class="vote-btns">
+    <button class="vote-btn" data-choice="a" type="button">호텔 뷔페</button>
+    <button class="vote-btn" data-choice="b" type="button">전통 요정</button>
+  </div>
+  <div class="vote-bar" aria-hidden="true"><div class="vote-fill" id="vote-fill" style="width:0"></div></div>
+  <p class="vote-result" id="vote-result" aria-live="polite"></p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 취향 퀴즈 -->
+<section class="quiz fade-in" aria-label="퀴즈">
+  <h3>당신은 얼마나 알고 있나?</h3>
+
+  <div class="quiz-q">
+    <p>Q1. 요정에서 술을 따를 때 올바른 예절은?</p>
+    <button class="quiz-opt" type="button" data-correct="false">한 손으로 쭉 따른다</button>
+    <button class="quiz-opt" type="button" data-correct="true">두 손으로 공손히 따른다</button>
+    <button class="quiz-opt" type="button" data-correct="false">상관없다, 편하게</button>
+  </div>
+
+  <div class="quiz-q">
+    <p>Q2. 가야금의 줄은 몇 개일까?</p>
+    <button class="quiz-opt" type="button" data-correct="false">6줄</button>
+    <button class="quiz-opt" type="button" data-correct="true">12줄</button>
+    <button class="quiz-opt" type="button" data-correct="false">25줄</button>
+  </div>
+
+  <div class="quiz-q">
+    <p>Q3. 한정식 코스에서 보통 마지막에 나오는 것은?</p>
+    <button class="quiz-opt" type="button" data-correct="false">생선회</button>
+    <button class="quiz-opt" type="button" data-correct="false">디저트 케이크</button>
+    <button class="quiz-opt" type="button" data-correct="true">솥밥과 된장찌개</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 비밀 섹션 (80% 스크롤) -->
+<section class="secret" id="secret" aria-label="숨겨진 이야기">
+  <h3>🌙 이 곳의 비밀</h3>
+  <p>예약할 때 "달빛 코스"라고 말해보라. 일반 메뉴판에는 없는 자리가 있다. 창 너머로 정원이 보이는 방. 거기서 먹는 밤 한정식은 낮과 전혀 다른 분위기다. 아는 사람만 안다. 이제 당신도 알았다.</p>
+</section>
+
+<section class="story fade-in">
+  <p>이거 읽고도 안 가면... 뭐, 할 말 없다.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 다음에 읽을 글 -->
+<section class="next fade-in" aria-label="추천 글">
+  <h3>다음에 읽을 글</h3>
+  <a class="next-card" href="https://bamkey.com" target="_blank" rel="noopener noreferrer">
+    <strong>접대 장소 고르는 법 — 실패 없는 3가지 기준</strong>
+    <span>회식 장소 때문에 고민이라면 이것만 기억하면 된다</span>
+  </a>
+  <a class="next-card" href="https://bamkey.com" target="_blank" rel="noopener noreferrer">
+    <strong>요정 vs 룸살롱 — 뭐가 다를까?</strong>
+    <span>이름만 다른 게 아니다. 결정적 차이가 있다</span>
+  </a>
+  <a class="next-card" href="https://bamkey.com" target="_blank" rel="noopener noreferrer">
+    <strong>일산 밤문화 솔직 후기 — 현지인이 말하는 진짜</strong>
+    <span>관광객용 말고, 진짜 로컬이 가는 곳</span>
+  </a>
+</section>
+
+<!-- 공유 -->
+<div class="share-wrap">
+  <button class="share-btn" id="share-btn" type="button" aria-label="공유하기">카카오톡 공유</button>
+</div>
+
+</article>
+</main>
+
+<footer>
+  <p>광고문의 카톡 <strong>besta12</strong></p>
+  <p><a href="https://bamkey.com" target="_blank" rel="noopener noreferrer">더 많은 업소 → 밤키에서 확인</a></p>
+  <p style="margin-top:12px;font-size:.75rem;opacity:.5">© 2025 일산명월관요정</p>
+</footer>
+
+<a href="tel:010-3695-4929" class="call-btn" aria-label="신실장에게 전화하기">📞 신실장 010-3695-4929</a>
+
+<script>
+(function(){
+"use strict";
+
+/* ── 스크롤 프로그레스 + 비밀 섹션 ── */
+var prog=document.getElementById("progress");
+var secret=document.getElementById("secret");
+var ticking=false;
+window.addEventListener("scroll",function(){
+  if(!ticking){requestAnimationFrame(function(){
+    var h=document.documentElement;
+    var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    prog.style.width=pct+"%";
+    if(pct>80)secret.classList.add("visible");
+    ticking=false;
+  });ticking=true;}
+});
+
+/* ── Fade-in 애니메이션 ── */
+try{
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("show");obs.unobserve(e.target);}});
+  },{threshold:0.15});
+  document.querySelectorAll(".fade-in").forEach(function(el){obs.observe(el);});
+}catch(e){}
+
+/* ── 방문자 카운터 ── */
+try{
+  var vk="mmg_v2";
+  var td=new Date().toDateString();
+  var vd=JSON.parse(localStorage.getItem(vk)||"{}");
+  if(vd.d!==td){vd={d:td,c:Math.floor(Math.random()*40)+38};}
+  vd.c++;
+  localStorage.setItem(vk,JSON.stringify(vd));
+  document.getElementById("visitor-count").textContent=vd.c;
+}catch(e){document.getElementById("visitor-count").textContent="52";}
+
+/* ── VS 투표 ── */
+try{
+  var vbtns=document.querySelectorAll(".vote-btn");
+  var vres=document.getElementById("vote-result");
+  var vfill=document.getElementById("vote-fill");
+  var voted=localStorage.getItem("mmg_vote");
+  if(voted)showVote(voted);
+  vbtns.forEach(function(b){b.addEventListener("click",function(){
+    var c=this.dataset.choice;
+    localStorage.setItem("mmg_vote",c);
+    showVote(c);
+  });});
+  function showVote(c){
+    var a=c==="b"?64:36;
+    vres.textContent="호텔 뷔페 "+(100-a)+"% vs 전통 요정 "+a+"%";
+    vfill.style.width=a+"%";
+    vbtns.forEach(function(b){b.classList.toggle("selected",b.dataset.choice===c);});
+  }
+}catch(e){}
+
+/* ── 퀴즈 ── */
+try{
+  document.querySelectorAll(".quiz-opt").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var q=this.closest(".quiz-q");
+      if(q.dataset.done)return;
+      q.dataset.done="1";
+      var ok=this.dataset.correct==="true";
+      this.classList.add(ok?"correct":"wrong");
+      if(!ok)q.querySelector('[data-correct="true"]').classList.add("correct");
+    });
+  });
+}catch(e){}
+
+/* ── 공유 ── */
+try{
+  document.getElementById("share-btn").addEventListener("click",function(){
+    var self=this;
+    if(navigator.share){
+      navigator.share({title:"일산명월관요정",text:"문 열고 들어서면 시간이 멈춘다",url:location.href});
+    }else{
+      navigator.clipboard.writeText(location.href).then(function(){
+        self.textContent="링크 복사 완료!";
+        setTimeout(function(){self.textContent="카카오톡 공유";},2e3);
+      });
+    }
+  });
+}catch(e){}
+
+})();
+</script>
 </body>
 </html>
