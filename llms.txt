@@ -3,4 +3,15 @@
 
 대표키워드: 일산명월관요정, 일산 요정, 일산 한정식, 명월관
 전화예약: 010-3695-4929 (신실장)
+
+## 페이지
 메인: https://hall2-cua.pages.dev/
+처음 가본 날: https://hall2-cua.pages.dev/blog/first/
+비즈니스 접대: https://hall2-cua.pages.dev/blog/business/
+한정식 리뷰: https://hall2-cua.pages.dev/blog/food/
+국악 라이브: https://hall2-cua.pages.dev/blog/music/
+VIP 접대: https://hall2-cua.pages.dev/blog/vip/
+장소 비교: https://hall2-cua.pages.dev/blog/compare/
+계절별 매력: https://hall2-cua.pages.dev/blog/seasonal/
+프라이빗 공간: https://hall2-cua.pages.dev/blog/private/
+2차 코스: https://hall2-cua.pages.dev/blog/after/
