@@ -1,3 +1,7 @@
+/* 글로벌 에러 핸들러 — JS 에러가 나도 화면은 절대 안 죽음 */
+window.onerror=function(m,u,l,c,e){console.error('global:',m,u,l);return true};
+window.addEventListener('unhandledrejection',function(e){e.preventDefault();console.error('promise:',e.reason)});
+
 (function(){
 "use strict";
 
@@ -194,7 +198,7 @@ function initAutoPlay(){
         setTimeout(function(){ap.classList.add('eg-ap-show')},10);
         count=0;
         var fill=document.getElementById('eg-ap-fill');
-        timer=setInterval(function(){
+        timer=safeInterval(function(){
           count++;if(fill)fill.style.width=(count/total*100)+'%';
           if(count>=total){clearInterval(timer);timer=null;location.href=cur.n}
         },1000);
