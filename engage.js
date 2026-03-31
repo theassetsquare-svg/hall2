@@ -20,7 +20,7 @@ var ARTICLES=[
   {p:'/blog/compare/',t:'장소 비교',n:'/blog/seasonal/'},
   {p:'/blog/seasonal/',t:'계절별 매력',n:'/blog/private/'},
   {p:'/blog/private/',t:'프라이빗 공간',n:'/blog/after/'},
-  {p:'/blog/after/',t:'2차 코스',n:'/blog/first/'}
+  {p:'/blog/after/',t:'끝나고 어디 갈까',n:'/blog/first/'}
 ];
 
 var KEY='mmg_e4';

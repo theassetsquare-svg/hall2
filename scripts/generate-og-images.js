@@ -14,7 +14,7 @@ const pages = [
   { file: 'og-compare.png', title: '호텔 vs 한정식', sub: '뭐가 나을까', contact: '일산명월관요정' },
   { file: 'og-seasonal.png', title: '계절별 매력', sub: '같은 곳, 다른 경험', contact: '일산명월관요정' },
   { file: 'og-private.png', title: '프라이빗 공간', sub: '남들 눈치 안 보는 곳', contact: '일산명월관요정' },
-  { file: 'og-after.png', title: '2차 코스 추천', sub: '끝나고 어디 갈까', contact: '일산명월관요정' },
+  { file: 'og-after.png', title: '마무리 코스 추천', sub: '끝나고 어디 갈까', contact: '일산명월관요정' },
 ];
 
 async function generate(p) {
