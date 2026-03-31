@@ -23,6 +23,11 @@ var KEY='mmg_e4';
 var XP_LV=120;
 var cur=ARTICLES.find(function(a){return a.p===location.pathname})||ARTICLES[0];
 
+/* ── 전역 타이머 추적 (cleanup용) ── */
+var _timers=[];
+function safeInterval(fn,ms){var id=setInterval(fn,ms);_timers.push(id);return id}
+function clearAllTimers(){_timers.forEach(function(id){clearInterval(id)});_timers=[]}
+
 /* ── State ── */
 function gs(){try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');
 if(!s.xp)s.xp=0;if(!s.lv)s.lv=1;if(!s.rd)s.rd=[];if(!s.sk)s.sk=0;
@@ -75,31 +80,34 @@ function addXP(n,msg){
 /* ══════════════════════════════
    2. 토스트 알림 시스템
    ══════════════════════════════ */
-var toastQ=[];
 function toast(msg,type){
-  var t=el('div','eg-toast eg-toast-'+type,msg);
-  document.body.appendChild(t);
-  setTimeout(function(){t.classList.add('eg-toast-show')},10);
-  setTimeout(function(){t.classList.remove('eg-toast-show');
-    setTimeout(function(){t.remove()},400);
-  },2800);
+  try{
+    var t=el('div','eg-toast eg-toast-'+type,msg);
+    document.body.appendChild(t);
+    setTimeout(function(){t.classList.add('eg-toast-show')},10);
+    setTimeout(function(){t.classList.remove('eg-toast-show');
+      setTimeout(function(){if(t.parentNode)t.remove()},400);
+    },2800);
+  }catch(e){}
 }
 
 /* ══════════════════════════════
    3. 컨페티 효과 (레벨업/달성)
    ══════════════════════════════ */
 function confetti(){
-  var c=el('div','eg-confetti');
-  for(var i=0;i<40;i++){
-    var p=el('span','eg-conf-p');
-    p.style.left=Math.random()*100+'%';
-    p.style.background=['#C9A96E','#8B0000','#22C55E','#FEE500','#FF6B6B','#4ECDC4'][Math.floor(Math.random()*6)];
-    p.style.animationDelay=Math.random()*0.5+'s';
-    p.style.animationDuration=(1.5+Math.random()*1.5)+'s';
-    c.appendChild(p);
-  }
-  document.body.appendChild(c);
-  setTimeout(function(){c.remove()},4000);
+  try{
+    var c=el('div','eg-confetti');
+    for(var i=0;i<40;i++){
+      var p=el('span','eg-conf-p');
+      p.style.left=Math.random()*100+'%';
+      p.style.background=['#C9A96E','#8B0000','#22C55E','#FEE500','#FF6B6B','#4ECDC4'][Math.floor(Math.random()*6)];
+      p.style.animationDelay=Math.random()*0.5+'s';
+      p.style.animationDuration=(1.5+Math.random()*1.5)+'s';
+      c.appendChild(p);
+    }
+    document.body.appendChild(c);
+    setTimeout(function(){if(c.parentNode)c.remove()},4000);
+  }catch(e){}
 }
 
 /* ══════════════════════════════
@@ -123,19 +131,21 @@ function initScrollReward(){
   var milestones=[25,50,75,100];var fired={};
   var rewards=['궁금증 해결 중...','절반이나 읽었다!','거의 다 왔다!','끝까지 읽었다!'];
   window.addEventListener('scroll',function(){
-    var h=document.documentElement;
-    var pct=Math.round(h.scrollTop/(h.scrollHeight-h.clientHeight)*100);
-    milestones.forEach(function(m,i){
-      if(pct>=m&&!fired[m]){
-        fired[m]=true;
-        var s=gs(),key=location.pathname+'_'+m;
-        if(!s.scrollRw[key]){
-          s.scrollRw[key]=1;ss(s);
-          addXP(m===100?40:10,rewards[i]);
-          if(m===100)markRead();
+    try{
+      var h=document.documentElement;
+      var pct=Math.round(h.scrollTop/(h.scrollHeight-h.clientHeight)*100);
+      milestones.forEach(function(m,i){
+        if(pct>=m&&!fired[m]){
+          fired[m]=true;
+          var s=gs(),key=location.pathname+'_'+m;
+          if(!s.scrollRw[key]){
+            s.scrollRw[key]=1;ss(s);
+            addXP(m===100?40:10,rewards[i]);
+            if(m===100)markRead();
+          }
         }
-      }
-    });
+      });
+    }catch(e){}
   });
 }
 
@@ -176,22 +186,24 @@ function initAutoPlay(){
 
   var shown=false,timer=null,count=0,total=8;
   window.addEventListener('scroll',function(){
-    var h=document.documentElement;
-    var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-    if(pct>92&&!shown){
-      shown=true;ap.style.display='block';
-      setTimeout(function(){ap.classList.add('eg-ap-show')},10);
-      count=0;
-      var fill=document.getElementById('eg-ap-fill');
-      timer=setInterval(function(){
-        count++;fill.style.width=(count/total*100)+'%';
-        if(count>=total){clearInterval(timer);location.href=cur.n}
-      },1000);
-    }
+    try{
+      var h=document.documentElement;
+      var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+      if(pct>92&&!shown){
+        shown=true;ap.style.display='block';
+        setTimeout(function(){ap.classList.add('eg-ap-show')},10);
+        count=0;
+        var fill=document.getElementById('eg-ap-fill');
+        timer=setInterval(function(){
+          count++;if(fill)fill.style.width=(count/total*100)+'%';
+          if(count>=total){clearInterval(timer);timer=null;location.href=cur.n}
+        },1000);
+      }
+    }catch(e){}
   });
   document.addEventListener('click',function(e){
-    if(e.target.id==='eg-ap-go'){clearInterval(timer);location.href=cur.n}
-    if(e.target.id==='eg-ap-cancel'){clearInterval(timer);ap.classList.remove('eg-ap-show');
+    if(e.target.id==='eg-ap-go'){if(timer){clearInterval(timer);timer=null}location.href=cur.n}
+    if(e.target.id==='eg-ap-cancel'){if(timer){clearInterval(timer);timer=null}ap.classList.remove('eg-ap-show');
       setTimeout(function(){ap.style.display='none'},400);shown=false}
   });
 }
@@ -217,47 +229,43 @@ function initSlot(){
   container.parentNode.insertBefore(slot,container);
 
   var symbols=['🌙','🎵','🍖','🏆','💰','🔥'];
-  var rewards=[
-    {match:3,xp:100,msg:'잭팟! 대박!'},
-    {match:2,xp:30,msg:'2개 일치! 행운!'},
-    {match:0,xp:5,msg:'다음엔 대박!'}
-  ];
 
   var s=gs();var td=new Date().toDateString();
   if(s.lastSpin!==td){s.spins=3;s.lastSpin=td;ss(s)}
   document.getElementById('eg-spins').textContent=s.spins;
 
   document.addEventListener('click',function(e){
-    if(e.target.id!=='eg-spin-btn')return;
-    var s=gs();if(s.spins<=0){toast('내일 다시 도전!','xp');return}
-    s.spins--;ss(s);
-    document.getElementById('eg-spins').textContent=s.spins;
+    try{
+      if(e.target.id!=='eg-spin-btn')return;
+      var s=gs();if(s.spins<=0){toast('내일 다시 도전!','xp');return}
+      s.spins--;ss(s);
+      document.getElementById('eg-spins').textContent=s.spins;
 
-    var r1=document.getElementById('eg-r1'),r2=document.getElementById('eg-r2'),r3=document.getElementById('eg-r3');
-    var res=document.getElementById('eg-slot-result');
-    r1.classList.add('eg-reel-spin');r2.classList.add('eg-reel-spin');r3.classList.add('eg-reel-spin');
+      var r1=document.getElementById('eg-r1'),r2=document.getElementById('eg-r2'),r3=document.getElementById('eg-r3');
+      var res=document.getElementById('eg-slot-result');
+      if(r1)r1.classList.add('eg-reel-spin');if(r2)r2.classList.add('eg-reel-spin');if(r3)r3.classList.add('eg-reel-spin');
 
-    setTimeout(function(){
-      var s1=symbols[Math.floor(Math.random()*symbols.length)];
-      var s2=symbols[Math.floor(Math.random()*symbols.length)];
-      var s3=symbols[Math.floor(Math.random()*symbols.length)];
-      // Near-miss psychology: 30% chance of 2 match
-      if(Math.random()<0.3){s2=s1}
-      // Jackpot: 5% chance
-      if(Math.random()<0.05){s2=s1;s3=s1}
+      setTimeout(function(){
+        var s1=symbols[Math.floor(Math.random()*symbols.length)];
+        var s2=symbols[Math.floor(Math.random()*symbols.length)];
+        var s3=symbols[Math.floor(Math.random()*symbols.length)];
+        if(Math.random()<0.3){s2=s1}
+        if(Math.random()<0.05){s2=s1;s3=s1}
 
-      r1.textContent=s1;r2.textContent=s2;r3.textContent=s3;
-      r1.classList.remove('eg-reel-spin');r2.classList.remove('eg-reel-spin');r3.classList.remove('eg-reel-spin');
+        if(r1){r1.textContent=s1;r1.classList.remove('eg-reel-spin')}
+        if(r2){r2.textContent=s2;r2.classList.remove('eg-reel-spin')}
+        if(r3){r3.textContent=s3;r3.classList.remove('eg-reel-spin')}
 
-      var matchCount=(s1===s2?1:0)+(s2===s3?1:0)+(s1===s3?1:0);
-      if(s1===s2&&s2===s3){
-        addXP(100,'잭팟!');res.textContent='🎉 잭팟! +100 XP!';confetti();
-      }else if(matchCount>=1){
-        addXP(30,'2개 일치!');res.textContent='✨ 2개 일치! +30 XP!';
-      }else{
-        addXP(5,'참여 보상');res.textContent='아쉽다! +5 XP. 다시 도전!';
-      }
-    },800);
+        var matchCount=(s1===s2?1:0)+(s2===s3?1:0)+(s1===s3?1:0);
+        if(s1===s2&&s2===s3){
+          addXP(100,'잭팟!');if(res)res.textContent='🎉 잭팟! +100 XP!';confetti();
+        }else if(matchCount>=1){
+          addXP(30,'2개 일치!');if(res)res.textContent='✨ 2개 일치! +30 XP!';
+        }else{
+          addXP(5,'참여 보상');if(res)res.textContent='아쉽다! +5 XP. 다시 도전!';
+        }
+      },800);
+    }catch(e){}
   });
 }
 
@@ -280,16 +288,18 @@ function initReactions(){
   updateRxCount();
 
   document.addEventListener('click',function(e){
-    if(!e.target.classList.contains('eg-rx'))return;
-    var rx=e.target.dataset.rx;
-    var s=gs();var key=location.pathname;
-    if(!s.reactions)s.reactions={};
-    s.reactions[key]=rx;ss(s);
-    e.target.classList.add('eg-rx-active');
-    addXP(10,'리액션!');
-    e.target.style.transform='scale(1.5)';
-    setTimeout(function(){e.target.style.transform=''},300);
-    updateRxCount();
+    try{
+      if(!e.target.classList.contains('eg-rx'))return;
+      var rx=e.target.dataset.rx;
+      var s=gs();var key=location.pathname;
+      if(!s.reactions)s.reactions={};
+      s.reactions[key]=rx;ss(s);
+      e.target.classList.add('eg-rx-active');
+      addXP(10,'리액션!');
+      e.target.style.transform='scale(1.5)';
+      setTimeout(function(){e.target.style.transform=''},300);
+      updateRxCount();
+    }catch(e){}
   });
 }
 function updateRxCount(){
@@ -300,9 +310,12 @@ function updateRxCount(){
 
 /* ══════════════════════════════
    10. 체류시간 트래커 + 마일스톤
+   — 비활성 탭 일시정지 (Page Visibility API)
+   — localStorage 10초마다만 저장 (성능 최적화)
    ══════════════════════════════ */
 function initTimeTracker(){
   var start=Date.now();
+  var paused=false;
   var milestones=[
     {t:60,msg:'1분 체류!',xp:10},
     {t:180,msg:'3분 돌파! 집중 모드',xp:20},
@@ -313,22 +326,36 @@ function initTimeTracker(){
     {t:5400,msg:'90분 돌파! 틱톡급 체류!',xp:200}
   ];
   var fired={};
+  var saveCounter=0;
 
-  setInterval(function(){
-    var elapsed=Math.floor((Date.now()-start)/1000);
-    var s=gs();s.tt+=1;ss(s);
-    var tmEl=document.getElementById('eg-timer');
-    if(tmEl){
-      var m=Math.floor(elapsed/60),sec=elapsed%60;
-      tmEl.textContent=m+':'+(sec<10?'0':'')+sec;
-    }
-    milestones.forEach(function(ms){
-      if(elapsed>=ms.t&&!fired[ms.t]){
-        fired[ms.t]=true;
-        addXP(ms.xp,ms.msg);
-        if(ms.t>=300)confetti();
+  /* 비활성 탭이면 타이머 일시정지 */
+  document.addEventListener('visibilitychange',function(){
+    paused=document.hidden;
+  });
+
+  safeInterval(function(){
+    try{
+      if(paused)return;
+      var elapsed=Math.floor((Date.now()-start)/1000);
+      var tmEl=document.getElementById('eg-timer');
+      if(tmEl){
+        var m=Math.floor(elapsed/60),sec=elapsed%60;
+        tmEl.textContent=m+':'+(sec<10?'0':'')+sec;
       }
-    });
+      /* localStorage는 10초마다만 저장 (성능) */
+      saveCounter++;
+      if(saveCounter>=10){
+        saveCounter=0;
+        var s=gs();s.tt+=10;ss(s);
+      }
+      milestones.forEach(function(ms){
+        if(elapsed>=ms.t&&!fired[ms.t]){
+          fired[ms.t]=true;
+          addXP(ms.xp,ms.msg);
+          if(ms.t>=300)confetti();
+        }
+      });
+    }catch(e){}
   },1000);
 }
 
@@ -361,15 +388,17 @@ function initMysteryBox(){
   target.parentNode.insertBefore(box,target.nextSibling);
 
   document.addEventListener('click',function(e){
-    var btn=document.getElementById('eg-mystery-btn');
-    var content=document.getElementById('eg-mystery-content');
-    if(btn&&btn.contains(e.target)){
-      var tip=tips[Math.floor(Math.random()*tips.length)];
-      content.textContent='💡 '+tip;
-      content.style.display='block';
-      btn.style.display='none';
-      addXP(15,'미스터리 오픈!');
-    }
+    try{
+      var btn=document.getElementById('eg-mystery-btn');
+      var content=document.getElementById('eg-mystery-content');
+      if(btn&&btn.contains(e.target)){
+        var tip=tips[Math.floor(Math.random()*tips.length)];
+        content.textContent='💡 '+tip;
+        content.style.display='block';
+        btn.style.display='none';
+        addXP(15,'미스터리 오픈!');
+      }
+    }catch(e){}
   });
 }
 
@@ -402,46 +431,50 @@ function initEndlessNudge(){
 function initExitIntent(){
   var shown=false;
   document.addEventListener('mouseleave',function(e){
-    if(e.clientY>10||shown)return;
-    shown=true;
-    var s=gs();var needed=XP_LV-(s.xp%XP_LV);
-    var overlay=el('div','eg-exit-overlay');
-    overlay.innerHTML='<div class="eg-exit-box">'+
-      '<h3>잠깐! 가지 마!</h3>'+
-      '<p>레벨 '+(s.lv+1)+'까지 <strong>'+needed+' XP</strong> 남았는데...</p>'+
-      '<p>글 하나만 더 읽으면 달성!</p>'+
-      '<button class="eg-exit-stay" id="eg-exit-stay" type="button">좀 더 볼게</button>'+
-      '<button class="eg-exit-go" id="eg-exit-go" type="button">다음에</button>'+
-    '</div>';
-    document.body.appendChild(overlay);
-    setTimeout(function(){overlay.classList.add('eg-exit-show')},10);
+    try{
+      if(e.clientY>10||shown)return;
+      shown=true;
+      var s=gs();var needed=XP_LV-(s.xp%XP_LV);
+      var overlay=el('div','eg-exit-overlay');
+      overlay.innerHTML='<div class="eg-exit-box">'+
+        '<h3>잠깐! 가지 마!</h3>'+
+        '<p>레벨 '+(s.lv+1)+'까지 <strong>'+needed+' XP</strong> 남았는데...</p>'+
+        '<p>글 하나만 더 읽으면 달성!</p>'+
+        '<button class="eg-exit-stay" id="eg-exit-stay" type="button">좀 더 볼게</button>'+
+        '<button class="eg-exit-go" id="eg-exit-go" type="button">다음에</button>'+
+      '</div>';
+      document.body.appendChild(overlay);
+      setTimeout(function(){overlay.classList.add('eg-exit-show')},10);
+    }catch(e){}
   });
   document.addEventListener('click',function(e){
     if(e.target.id==='eg-exit-stay'||e.target.id==='eg-exit-go'){
       var ov=document.querySelector('.eg-exit-overlay');
-      if(ov){ov.classList.remove('eg-exit-show');setTimeout(function(){ov.remove()},400)}
+      if(ov){ov.classList.remove('eg-exit-show');setTimeout(function(){if(ov.parentNode)ov.remove()},400)}
     }
   });
 }
 
 /* ══════════════════════════════
-   INIT
+   페이지 이탈 시 전체 cleanup
+   ══════════════════════════════ */
+window.addEventListener('beforeunload',function(){clearAllTimers()});
+
+/* ══════════════════════════════
+   INIT — 각 모듈 독립 try-catch
    ══════════════════════════════ */
 document.addEventListener('DOMContentLoaded',function(){
-  try{
-    checkStreak();
-    initHUD();
-    initScrollReward();
-    initTimeTracker();
-    initAutoPlay();
-    initSlot();
-    initReactions();
-    initMysteryBox();
-    initEndlessNudge();
-    initExitIntent();
-    // 첫 방문 XP
-    var s=gs();if(s.xp===0)addXP(10,'첫 방문 보너스!');
-  }catch(e){console.error('engage:',e)}
+  try{checkStreak()}catch(e){console.error('engage:streak',e)}
+  try{initHUD()}catch(e){console.error('engage:hud',e)}
+  try{initScrollReward()}catch(e){console.error('engage:scroll',e)}
+  try{initTimeTracker()}catch(e){console.error('engage:timer',e)}
+  try{initAutoPlay()}catch(e){console.error('engage:autoplay',e)}
+  try{initSlot()}catch(e){console.error('engage:slot',e)}
+  try{initReactions()}catch(e){console.error('engage:reactions',e)}
+  try{initMysteryBox()}catch(e){console.error('engage:mystery',e)}
+  try{initEndlessNudge()}catch(e){console.error('engage:nudge',e)}
+  try{initExitIntent()}catch(e){console.error('engage:exit',e)}
+  try{var s=gs();if(s.xp===0)addXP(10,'첫 방문 보너스!')}catch(e){}
 });
 
 })();

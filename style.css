@@ -1,7 +1,7 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#F5F5F5;--white:#FFFFFF;--text:#111111;--sub:#555555;--gold:#C9A96E;--red:#8B0000;--green:#22C55E;--shadow:0 2px 12px rgba(0,0,0,.07);--r:12px}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 #progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:9999;width:0;transition:width .12s linear}
 .nav{background:var(--white);padding:13px 20px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:100}
 .nav-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
@@ -45,7 +45,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .vote-section{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:18px 0;text-align:center}
 .vote-section h3{color:var(--text);margin-bottom:14px;font-size:.98rem}
 .vote-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.vote-btn{padding:11px 22px;border:2px solid var(--gold);background:transparent;color:var(--text);border-radius:var(--r);cursor:pointer;font-size:.88rem;transition:all .25s;font-family:inherit}
+.vote-btn{padding:11px 22px;border:2px solid var(--gold);background:transparent;color:var(--text);border-radius:var(--r);cursor:pointer;font-size:.88rem;transition:all .25s;font-family:inherit;min-height:44px}
 .vote-btn:hover,.vote-btn.selected{background:var(--gold);color:#fff}
 .vote-result{margin-top:10px;color:var(--sub);font-size:.82rem;min-height:20px}
 .vote-bar{height:5px;background:#eee;border-radius:3px;margin-top:8px;overflow:hidden}
@@ -54,7 +54,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .quiz-section h3{text-align:center;margin-bottom:18px;font-size:.98rem}
 .quiz-q{margin-bottom:14px;padding:16px;background:var(--bg);border-radius:10px}
 .quiz-q p{margin-bottom:10px;font-weight:700;font-size:.9rem}
-.quiz-opt{display:block;width:100%;padding:9px 14px;margin:4px 0;border:1px solid #ddd;background:var(--white);color:var(--text);border-radius:8px;cursor:pointer;text-align:left;font-size:.86rem;transition:all .2s;font-family:inherit}
+.quiz-opt{display:block;width:100%;padding:11px 14px;margin:4px 0;border:1px solid #ddd;background:var(--white);color:var(--text);border-radius:8px;cursor:pointer;text-align:left;font-size:.86rem;transition:all .2s;font-family:inherit;min-height:44px}
 .quiz-opt:hover{border-color:var(--gold)}
 .quiz-opt.correct{background:rgba(34,197,94,.1);border-color:#22C55E;cursor:default}
 .quiz-opt.wrong{background:rgba(239,68,68,.1);border-color:#EF4444;cursor:default}
@@ -63,7 +63,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .secret h3{color:var(--gold);margin-bottom:8px;font-size:1rem}
 .secret p{color:var(--sub);font-size:.9rem}
 .share-wrap{text-align:center;margin:14px 0}
-.share-btn{padding:10px 22px;background:#FEE500;color:#191600;border:none;border-radius:var(--r);cursor:pointer;font-size:.86rem;font-weight:700;font-family:inherit;transition:opacity .2s}
+.share-btn{padding:12px 22px;background:#FEE500;color:#191600;border:none;border-radius:var(--r);cursor:pointer;font-size:.86rem;font-weight:700;font-family:inherit;transition:opacity .2s;min-height:44px}
 .share-btn:hover{opacity:.85}
 footer{text-align:center;padding:28px 20px 120px;font-size:.78rem;color:var(--sub);line-height:2.2}
 footer a{color:var(--gold);text-decoration:none}
@@ -115,7 +115,7 @@ footer a:hover{text-decoration:underline}
 .eg-reel{width:60px;height:60px;background:var(--bg);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:1.8rem;transition:transform .1s}
 .eg-reel-spin{animation:eg-spin .8s ease-out}
 @keyframes eg-spin{0%{transform:rotateX(0)}25%{transform:rotateX(90deg)}50%{transform:rotateX(180deg)}75%{transform:rotateX(270deg)}100%{transform:rotateX(360deg)}}
-.eg-slot-btn{padding:10px 32px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;transition:transform .15s}
+.eg-slot-btn{padding:12px 32px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;transition:transform .15s;min-height:44px}
 .eg-slot-btn:active{transform:scale(.95)}
 .eg-slot-result{margin-top:10px;font-size:.88rem;font-weight:600;color:var(--gold);min-height:22px}
 
@@ -144,7 +144,7 @@ footer a:hover{text-decoration:underline}
 .eg-exit-box{background:var(--white);border-radius:var(--r);padding:28px;text-align:center;max-width:320px;margin:0 16px;box-shadow:0 8px 32px rgba(0,0,0,.2)}
 .eg-exit-box h3{font-size:1.1rem;margin-bottom:8px;color:var(--red)}
 .eg-exit-box p{font-size:.88rem;color:var(--sub);margin-bottom:6px}
-.eg-exit-stay{display:block;width:100%;padding:12px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.92rem;cursor:pointer;margin:14px 0 8px;font-family:inherit}
-.eg-exit-go{display:block;width:100%;padding:10px;background:transparent;color:var(--sub);border:none;font-size:.82rem;cursor:pointer;font-family:inherit}
+.eg-exit-stay{display:block;width:100%;padding:12px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.92rem;cursor:pointer;margin:14px 0 8px;font-family:inherit;min-height:44px}
+.eg-exit-go{display:block;width:100%;padding:10px;background:transparent;color:var(--sub);border:none;font-size:.82rem;cursor:pointer;font-family:inherit;min-height:44px}
 
-@media(max-width:480px){.eg-hud{top:44px;right:8px;padding:8px 10px;min-width:120px;font-size:.68rem}.eg-toast{max-width:220px;font-size:.78rem}}
+@media(max-width:480px){.eg-hud{top:50px;right:8px;padding:8px 10px;min-width:120px;font-size:.68rem}.eg-toast{max-width:220px;font-size:.78rem}.eg-autoplay{bottom:82px}.eg-ap-go,.eg-ap-cancel{min-height:44px}}
