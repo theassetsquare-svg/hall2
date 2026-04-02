@@ -34,11 +34,15 @@
   <p>문 열고 들어서면, 시간이 멈춘다</p>
 </header>
 
-<div class="counter" aria-live="polite">오늘 <strong id="visitor-count">0</strong>명이 이 글을 읽었습니다</div>
+<!-- Countdown 긴급감 -->
+<div class="countdown" aria-live="polite">이번 주말 예약 마감 — 남은 자리 <strong id="seat-count">3</strong>석</div>
+
+<!-- Social Proof 월간 -->
+<div class="social-proof" aria-live="polite">이번 달 <strong id="monthly-count">0</strong>명이 이 글을 읽었습니다</div>
 
 <main class="container">
 
-<p style="font-size:.95rem;color:var(--sub);line-height:1.8;margin-bottom:18px;word-break:keep-all">일산명월관요정. 솔직히 처음엔 요정이 뭔가 싶었다. 근데 문 열고 들어간 순간 틀렸다는 걸 알았다. 15가지 코스 한정식, 문 닫히면 우리만의 세상, 눈앞 1.5미터에서 울리는 가야금. 여기 다녀온 사람들이 직접 쓴 후기를 모았다.</p>
+<p style="font-size:.95rem;color:var(--sub);line-height:1.8;margin-bottom:18px;word-break:keep-all">솔직히 말한다. 일산명월관요정, 처음엔 나도 의심했다. 요정이 뭔데? 조선시대 얘기 아닌가. 근데 문 열고 3초 만에 인정했다. 15가지 코스 한정식, 눈앞 1.5미터 가야금, 문 닫히면 우리만의 세상. 여기 직접 다녀온 사람들 후기를 모았다.</p>
 
 <h2>일산명월관요정, 직접 다녀온 후기</h2>
 
@@ -144,17 +148,36 @@
   </div>
 </section>
 
-<!-- Before / After -->
-<section class="before-after fade-in">
-  <h2>일산명월관요정 방문 전 vs 후</h2>
-  <div class="ba-row">
-    <div class="ba-col ba-before"><span class="ba-label">Before</span>요정? 조선시대 얘긴가. 밥집에 뭘 기대하나 싶었다. 솔직히 의심했다.</div>
-    <div class="ba-col ba-after"><span class="ba-label">After</span>밥집이 아니었다. 공연장이고, 프라이빗 공간이고, 코스 요리였다. 다음 달 예약 잡았다.</div>
+<!-- 낮 vs 밤 갤러리 -->
+<section class="gallery fade-in">
+  <h2>일산명월관요정 — 낮과 밤, 완전히 다른 얼굴</h2>
+  <div class="gallery-track" id="gallery-track">
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-spring"><span>낮 — 정원</span></div><div class="gallery-half mood-night"><span>밤 — 정원</span></div></div>
+      <p class="gallery-label">낮엔 햇살이 마루를 비추고, 밤엔 조명이 정원을 물들인다.</p>
+    </div>
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-food"><span>낮 — 상차림</span></div><div class="gallery-half mood-private"><span>밤 — 상차림</span></div></div>
+      <p class="gallery-label">같은 코스인데 분위기가 다르면 맛도 달라진다. 밤 코스엔 술이 어울린다.</p>
+    </div>
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-green"><span>낮 — 외관</span></div><div class="gallery-half mood-city"><span>밤 — 외관</span></div></div>
+      <p class="gallery-label">낮엔 한옥 카페 같고, 밤엔 숨겨진 바 같다. 간판은 같은데 느낌이 다르다.</p>
+    </div>
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-wood"><span>낮 — 복도</span></div><div class="gallery-half mood-music"><span>밤 — 복도</span></div></div>
+      <p class="gallery-label">낮 복도는 나무 향이 선명하고, 밤 복도엔 가야금 소리가 스민다.</p>
+    </div>
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-autumn"><span>낮 — 개인실</span></div><div class="gallery-half mood-private"><span>밤 — 개인실</span></div></div>
+      <p class="gallery-label">낮엔 창밖 단풍이 들어오고, 밤엔 문 닫으면 완벽한 프라이빗.</p>
+    </div>
+    <div class="gallery-slide">
+      <div class="gallery-compare"><div class="gallery-half mood-food"><span>낮 — 마무리</span></div><div class="gallery-half mood-night"><span>밤 — 마무리</span></div></div>
+      <p class="gallery-label">낮 솥밥은 담백하고, 밤 솥밥은 술 한잔 뒤라 더 고소하다.</p>
+    </div>
   </div>
-  <div class="ba-row">
-    <div class="ba-col ba-before"><span class="ba-label">Before</span>호텔 뷔페면 충분하지. 굳이 요정까지 갈 필요 있나.</div>
-    <div class="ba-col ba-after"><span class="ba-label">After</span>호텔은 이름을 잊는다. 여기는 분위기를 기억한다. 접대 성공률이 달라졌다.</div>
-  </div>
+  <div class="gallery-dots" id="gallery-dots"></div>
 </section>
 
 <div class="divider"></div>
@@ -170,23 +193,32 @@
   <p class="vote-result" id="vote-result" aria-live="polite"></p>
 </section>
 
-<!-- 퀴즈 -->
-<section class="quiz-section fade-in" aria-label="퀴즈">
-  <h2>당신은 얼마나 알고 있나?</h2>
-  <div class="quiz-q"><p>Q1. 전통 주석에서 술을 따르는 올바른 예절은?</p>
-    <button class="quiz-opt" type="button" data-correct="false">한 손으로 빠르게</button>
-    <button class="quiz-opt" type="button" data-correct="true">두 손으로 공손히</button>
-    <button class="quiz-opt" type="button" data-correct="false">상관없다</button>
+<!-- 밤문화 유형 미니퀴즈 -->
+<section class="type-quiz fade-in" id="type-quiz" aria-label="밤문화 유형 테스트">
+  <h2>당신에게 맞는 밤문화 유형은?</h2>
+  <p class="type-quiz-sub">3문항이면 끝. 결과가 궁금하면 끝까지.</p>
+  <div class="tq-progress"><span class="tq-dot" id="tqd0"></span><span class="tq-dot" id="tqd1"></span><span class="tq-dot" id="tqd2"></span></div>
+
+  <div class="tq-step active" id="tqs0">
+    <p class="tq-q">Q1. 금요일 밤, 접대 장소를 골라야 한다면?</p>
+    <button class="tq-opt" type="button" data-v="a">호텔 루프탑 바 — 도시 야경이 깔려야지</button>
+    <button class="tq-opt" type="button" data-v="b">프라이빗 룸 — 문 닫히면 우리만의 공간</button>
+    <button class="tq-opt" type="button" data-v="c">맛집 예약 — 결국 음식이 승부다</button>
   </div>
-  <div class="quiz-q"><p>Q2. 가야금의 줄은 몇 개일까?</p>
-    <button class="quiz-opt" type="button" data-correct="false">6줄</button>
-    <button class="quiz-opt" type="button" data-correct="true">12줄</button>
-    <button class="quiz-opt" type="button" data-correct="false">25줄</button>
+  <div class="tq-step" id="tqs1">
+    <p class="tq-q">Q2. 분위기 vs 음식, 하나만 고른다면?</p>
+    <button class="tq-opt" type="button" data-v="a">분위기. 맛은 잊어도 그날 느낌은 남는다</button>
+    <button class="tq-opt" type="button" data-v="b">음식. 입에 남는 게 결국 기억이다</button>
+    <button class="tq-opt" type="button" data-v="c">둘 다. 타협 안 한다</button>
   </div>
-  <div class="quiz-q"><p>Q3. 한정식 코스 마지막에 나오는 것은?</p>
-    <button class="quiz-opt" type="button" data-correct="false">생선회</button>
-    <button class="quiz-opt" type="button" data-correct="false">디저트 케이크</button>
-    <button class="quiz-opt" type="button" data-correct="true">솥밥과 된장찌개</button>
+  <div class="tq-step" id="tqs2">
+    <p class="tq-q">Q3. 요정이라는 단어를 들으면 떠오르는 건?</p>
+    <button class="tq-opt" type="button" data-v="a">뭔가 고급스러운 곳? 한번 가보고 싶다</button>
+    <button class="tq-opt" type="button" data-v="b">조선시대? 솔직히 잘 모르겠다</button>
+    <button class="tq-opt" type="button" data-v="c">아, 그거. 한정식에 공연까지 있는 곳</button>
+  </div>
+  <div class="tq-step" id="tqs3">
+    <div class="tq-result" id="tq-result"></div>
   </div>
 </section>
 
@@ -200,9 +232,8 @@
   <button class="share-btn" id="share-btn" type="button">카카오톡 공유</button>
 </div>
 
-<div class="bamkey-cta">
-  <p>예약부터 분위기까지, 더 궁금하다면</p>
-  <a href="https://ilsanroom.pages.dev/" target="_blank" rel="noopener noreferrer">놀쿨에서 더 보기 →</a>
+<div class="bottom-cta">
+  <a href="https://ilsanroom.pages.dev/" target="_blank" rel="noopener noreferrer">놀쿨에서 더 많은 곳 보기 →</a>
 </div>
 
 </main>
@@ -212,6 +243,15 @@
   <p><a href="https://ilsanroom.pages.dev/" target="_blank" rel="noopener noreferrer">놀쿨에서 더 많은 나이트라이프 확인 →</a></p>
 </footer>
 
+<!-- 모바일 이탈방지 -->
+<div class="exit-mobile" id="exit-mobile">
+  <div class="exit-mobile-inner">
+    <div class="exit-mobile-text">잠깐! 이것만 보고 가세요<span>일산명월관요정 예약 전 꼭 확인할 3가지</span></div>
+    <button class="exit-mobile-btn" id="exit-mobile-btn" type="button" onclick="location.href='/blog/first/'">확인하기</button>
+    <button class="exit-mobile-close" id="exit-mobile-x" type="button" aria-label="닫기">&times;</button>
+  </div>
+</div>
+
 <a href="tel:010-3695-4929" class="call-btn">📞 신실장 010-3695-4929</a>
 
 <script>
@@ -219,15 +259,67 @@
 /* 스켈레톤 즉시 제거 */
 var sk1=document.getElementById("sk1"),sk2=document.getElementById("sk2");
 if(sk1)sk1.remove();if(sk2)sk2.remove();
-/* persistSession: 세션 복원으로 빈 화면 방지 */
+/* persistSession */
 try{sessionStorage.setItem("mmg_alive","1")}catch(e){}
 var prog=document.getElementById("progress"),secret=document.getElementById("secret"),ticking=false;
 window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(function(){var h=document.documentElement,pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;prog.style.width=pct+"%";if(pct>80&&secret)secret.classList.add("visible");ticking=false});ticking=true}});
 try{var o=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("show");o.unobserve(x.target)}})},{threshold:.12});document.querySelectorAll(".fade-in").forEach(function(el){o.observe(el)})}catch(e){}
-try{var vk="mmg_v3",td=new Date().toDateString(),vd=JSON.parse(localStorage.getItem(vk)||"{}");if(vd.d!==td)vd={d:td,c:Math.floor(Math.random()*40)+38};vd.c++;localStorage.setItem(vk,JSON.stringify(vd));document.getElementById("visitor-count").textContent=vd.c}catch(e){document.getElementById("visitor-count").textContent="52"}
+
+/* Countdown: 요일 기반 남은 좌석 */
+try{var day=new Date().getDay();var seats=[3,5,4,4,3,2,2];var sc=document.getElementById("seat-count");if(sc)sc.textContent=seats[day]}catch(e){}
+
+/* Social Proof: 월간 방문자 */
+try{var mk="mmg_m2",mn=new Date().getMonth(),md=JSON.parse(localStorage.getItem(mk)||"{}");if(md.m!==mn)md={m:mn,c:Math.floor(Math.random()*800)+1200};md.c++;localStorage.setItem(mk,JSON.stringify(md));var mc=document.getElementById("monthly-count");if(mc)mc.textContent=md.c.toLocaleString()}catch(e){var mc2=document.getElementById("monthly-count");if(mc2)mc2.textContent="1,847"}
+
+/* Gallery dots */
+try{var gt=document.getElementById("gallery-track"),gd=document.getElementById("gallery-dots");
+if(gt&&gd){var slides=gt.querySelectorAll(".gallery-slide");
+for(var gi=0;gi<slides.length;gi++){var dot=document.createElement("span");dot.className="gallery-dot"+(gi===0?" active":"");gd.appendChild(dot)}
+gt.addEventListener("scroll",function(){var sw=gt.scrollLeft,cw=gt.querySelector(".gallery-slide").offsetWidth+12;var idx=Math.round(sw/cw);var dots=gd.querySelectorAll(".gallery-dot");dots.forEach(function(d,i){d.classList.toggle("active",i===idx)})})}}catch(e){}
+
+/* Vote */
 try{var vb=document.querySelectorAll(".vote-btn"),vr=document.getElementById("vote-result"),vf=document.getElementById("vote-fill"),vv=localStorage.getItem("mmg_vote2");if(vv)sv(vv);vb.forEach(function(b){b.addEventListener("click",function(){var c=this.dataset.choice;localStorage.setItem("mmg_vote2",c);sv(c)})});function sv(c){var a=c==="b"?64:36;vr.textContent="호텔 뷔페 "+(100-a)+"% vs 전통 한정식 "+a+"%";vf.style.width=a+"%";vb.forEach(function(b){b.classList.toggle("selected",b.dataset.choice===c)})}}catch(e){}
-try{document.querySelectorAll(".quiz-opt").forEach(function(b){b.addEventListener("click",function(){var q=this.closest(".quiz-q");if(q.dataset.done)return;q.dataset.done="1";var ok=this.dataset.correct==="true";this.classList.add(ok?"correct":"wrong");if(!ok)q.querySelector('[data-correct="true"]').classList.add("correct")})})}catch(e){}
+
+/* 밤문화 유형 퀴즈 */
+try{var tqStep=0,tqAns=[];
+var types={
+aaa:{icon:"🌃",t:"루프탑 감성파",d:"분위기에 진심인 당신. 야경과 칵테일이 기본이다. 근데 한번 일산명월관요정의 밤을 경험하면, 루프탑이 심심해질 수도 있다."},
+bbb:{icon:"🔒",t:"프라이빗 실속파",d:"공간이 곧 대화다. 문 닫히는 순간 비즈니스가 시작된다. 일산명월관요정의 개인실이 딱 맞는 유형."},
+ccc:{icon:"🍽️",t:"미식 탐험가",d:"입에 남는 게 기억이다. 15가지 코스를 하나하나 음미할 줄 아는 당신, 전복죽부터 솥밥까지 빠짐없이 체크할 사람."},
+mix:{icon:"✨",t:"올라운더 감각파",d:"분위기도, 음식도, 공간도 전부 중요하다. 타협 없는 당신에게 일산명월관요정은 전부 갖춘 몇 안 되는 곳."}
+};
+document.getElementById("type-quiz").addEventListener("click",function(e){
+  if(!e.target.classList.contains("tq-opt"))return;
+  var step=e.target.closest(".tq-step");
+  step.querySelectorAll(".tq-opt").forEach(function(b){b.classList.remove("selected")});
+  e.target.classList.add("selected");
+  tqAns[tqStep]=e.target.dataset.v;
+  var dd=document.getElementById("tqd"+tqStep);if(dd)dd.classList.add("done");
+  setTimeout(function(){
+    document.getElementById("tqs"+tqStep).classList.remove("active");
+    tqStep++;
+    if(tqStep<3){document.getElementById("tqs"+tqStep).classList.add("active")}
+    else{
+      var k=tqAns.join("");var r=types[k]||types.mix;
+      document.getElementById("tq-result").innerHTML='<div class="tq-result-icon">'+r.icon+'</div><p class="tq-result-title">'+r.t+'</p><p class="tq-result-desc">'+r.d+'</p><a href="https://ilsanroom.pages.dev/" target="_blank" rel="noopener noreferrer" class="tq-result-cta">놀쿨에서 더 많은 곳 보기 →</a>';
+      document.getElementById("tqs3").classList.add("active");
+    }
+  },400);
+})}catch(e){}
+
+/* Share */
 try{document.getElementById("share-btn").addEventListener("click",function(){var s=this;if(navigator.share)navigator.share({title:"일산명월관요정",text:"문 열고 들어서면 시간이 멈춘다",url:location.href});else navigator.clipboard.writeText(location.href).then(function(){s.textContent="링크 복사 완료!";setTimeout(function(){s.textContent="카카오톡 공유"},2e3)})})}catch(e){}
+
+/* 모바일 이탈방지: 스크롤 올리면 트리거 */
+try{var exm=document.getElementById("exit-mobile"),exShown=false,lastY=window.scrollY,scrollUp=0;
+window.addEventListener("scroll",function(){
+  if(exShown)return;
+  var cy=window.scrollY;
+  if(cy<lastY&&cy>300){scrollUp+=lastY-cy;if(scrollUp>120){exShown=true;exm.classList.add("show")}}
+  else{scrollUp=0}
+  lastY=cy;
+});
+document.getElementById("exit-mobile-x").addEventListener("click",function(){exm.classList.remove("show")})}catch(e){}
 })();
 </script>
 <script src="/engage.js" defer></script>

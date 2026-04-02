@@ -217,7 +217,7 @@ function getNextTitle(){var nx=ARTICLES.find(function(a){return a.p===cur.n});re
    8. 슬롯머신 (가변 보상 시스템)
    ══════════════════════════════ */
 function initSlot(){
-  var container=document.querySelector('.bamkey-cta');
+  var container=document.querySelector('.bottom-cta');
   if(!container)return;
   var slot=el('div','eg-slot');
   slot.innerHTML=
