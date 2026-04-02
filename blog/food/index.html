@@ -78,7 +78,7 @@
 <footer><p>광고문의 카톡 <strong>besta12</strong></p><p><a href="https://ilsanroom.pages.dev/" target="_blank" rel="noopener noreferrer">놀쿨에서 더 많은 나이트라이프 확인 →</a></p></footer>
 <a href="tel:010-3695-4929" class="call-btn">📞 신실장 010-3695-4929</a>
 <script>
-(function(){"use strict";var p=document.getElementById("progress"),t=false;window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(function(){var h=document.documentElement;p.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";t=false});t=true}});
+(function(){"use strict";try{sessionStorage.setItem("mmg_alive","1")}catch(e){}var p=document.getElementById("progress"),t=false;window.addEventListener("scroll",function(){if(!t){requestAnimationFrame(function(){var h=document.documentElement;p.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";t=false});t=true}});
 try{document.getElementById("share-btn").addEventListener("click",function(){var s=this;if(navigator.share)navigator.share({title:document.title,url:location.href});else navigator.clipboard.writeText(location.href).then(function(){s.textContent="링크 복사 완료!";setTimeout(function(){s.textContent="카카오톡 공유"},2e3)})})}catch(e){}})();
 </script>
 <script src="/engage.js" defer></script>
