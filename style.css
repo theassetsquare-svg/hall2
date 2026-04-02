@@ -13,6 +13,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .hero-banner h1{font-size:1.75rem;color:var(--gold);letter-spacing:2px;margin-bottom:10px;font-weight:800}
 .hero-banner p{font-size:.93rem;color:rgba(255,255,255,.75);font-weight:300}
 .counter{text-align:center;padding:8px;font-size:.78rem;color:var(--sub);opacity:.65}
+.container>h2{font-size:1.1rem;font-weight:800;color:var(--text);margin:22px 0 12px;padding-left:2px}
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin-bottom:14px;transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
 .card a{text-decoration:none;color:inherit;display:block}
@@ -43,7 +44,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .related{margin:18px 0}
 .related h3{font-size:.98rem;font-weight:700;margin-bottom:10px;color:var(--text)}
 .vote-section{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:18px 0;text-align:center}
-.vote-section h3{color:var(--text);margin-bottom:14px;font-size:.98rem}
+.vote-section h2{color:var(--text);margin-bottom:14px;font-size:.98rem}
 .vote-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .vote-btn{padding:11px 22px;border:2px solid var(--gold);background:transparent;color:var(--text);border-radius:var(--r);cursor:pointer;font-size:.88rem;transition:all .25s;font-family:inherit;min-height:44px}
 .vote-btn:hover,.vote-btn.selected{background:var(--gold);color:#fff}
@@ -51,7 +52,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .vote-bar{height:5px;background:#eee;border-radius:3px;margin-top:8px;overflow:hidden}
 .vote-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .6s}
 .quiz-section{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:18px 0}
-.quiz-section h3{text-align:center;margin-bottom:18px;font-size:.98rem}
+.quiz-section h2{text-align:center;margin-bottom:18px;font-size:.98rem}
 .quiz-q{margin-bottom:14px;padding:16px;background:var(--bg);border-radius:10px}
 .quiz-q p{margin-bottom:10px;font-weight:700;font-size:.9rem}
 .quiz-opt{display:block;width:100%;padding:11px 14px;margin:4px 0;border:1px solid #ddd;background:var(--white);color:var(--text);border-radius:8px;cursor:pointer;text-align:left;font-size:.86rem;transition:all .2s;font-family:inherit;min-height:44px}
@@ -60,7 +61,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .quiz-opt.wrong{background:rgba(239,68,68,.1);border-color:#EF4444;cursor:default}
 .secret{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin:18px 0;text-align:center;opacity:0;transform:translateY(20px);transition:all .7s}
 .secret.visible{opacity:1;transform:translateY(0)}
-.secret h3{color:var(--gold);margin-bottom:8px;font-size:1rem}
+.secret h2{color:var(--gold);margin-bottom:8px;font-size:1rem}
 .secret p{color:var(--sub);font-size:.9rem}
 .share-wrap{text-align:center;margin:14px 0}
 .share-btn{padding:12px 22px;background:#FEE500;color:#191600;border:none;border-radius:var(--r);cursor:pointer;font-size:.86rem;font-weight:700;font-family:inherit;transition:opacity .2s;min-height:44px}
