@@ -1,0 +1,10 @@
+# Cloudflare Pages — clean URL fallback
+/blog/first  /blog/first/index.html  200
+/blog/business  /blog/business/index.html  200
+/blog/food  /blog/food/index.html  200
+/blog/music  /blog/music/index.html  200
+/blog/vip  /blog/vip/index.html  200
+/blog/compare  /blog/compare/index.html  200
+/blog/seasonal  /blog/seasonal/index.html  200
+/blog/private  /blog/private/index.html  200
+/blog/after  /blog/after/index.html  200
