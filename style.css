@@ -3,21 +3,21 @@
 html{scroll-behavior:smooth}
 body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 #progress{position:fixed;top:0;left:0;height:3px;background:var(--gold);z-index:9999;width:0;transition:width .12s linear}
-.nav{background:var(--white);padding:13px 20px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:1.05rem;font-weight:800;color:var(--red);text-decoration:none;letter-spacing:.5px}
-.nav-back{font-size:.85rem;color:var(--sub);text-decoration:none}
+.nav{background:var(--white);padding:0 20px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.nav-logo{font-size:1.05rem;font-weight:800;color:var(--red);text-decoration:none;letter-spacing:.5px;min-height:44px;display:flex;align-items:center}
+.nav-back{font-size:.85rem;color:var(--sub);text-decoration:none;min-height:44px;display:flex;align-items:center;padding:0 4px}
 .nav-back:hover{color:var(--text)}
 .container{max-width:720px;margin:0 auto;padding:20px 16px}
 .hero-banner{background:linear-gradient(135deg,var(--red),#4a0000);color:#fff;text-align:center;padding:44px 20px 36px;margin-bottom:4px}
 .hero-banner h1{font-size:1.75rem;color:var(--gold);letter-spacing:2px;margin-bottom:10px;font-weight:800}
 .hero-banner p{font-size:.93rem;color:rgba(255,255,255,.75);font-weight:300}
-.counter{text-align:center;padding:8px;font-size:.78rem;color:var(--sub);opacity:.65}
+.counter{text-align:center;padding:8px;font-size:.78rem;color:#666;opacity:1}
 .container>h2{font-size:1.1rem;font-weight:800;color:var(--text);margin:22px 0 12px;padding-left:2px}
 .card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin-bottom:14px;transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
-.card a{text-decoration:none;color:inherit;display:block}
-.card-tag{display:inline-block;font-size:.72rem;color:var(--gold);background:rgba(201,169,110,.1);padding:2px 10px;border-radius:20px;margin-bottom:8px}
+.card a{text-decoration:none;color:inherit;display:block;min-height:44px}
+.card-tag{display:inline-block;font-size:.72rem;color:#8B6914;background:rgba(201,169,110,.15);padding:2px 10px;border-radius:20px;margin-bottom:8px}
 .card-title{font-size:1.08rem;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.5}
 .card-excerpt{font-size:.88rem;color:var(--sub);line-height:1.7}
 .article{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:30px 22px;margin-bottom:18px}
@@ -63,7 +63,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun 
 .share-btn{padding:12px 22px;background:#FEE500;color:#191600;border:none;border-radius:var(--r);cursor:pointer;font-size:.86rem;font-weight:700;font-family:inherit;transition:opacity .2s;min-height:44px}
 .share-btn:hover{opacity:.85}
 footer{text-align:center;padding:28px 20px 120px;font-size:.78rem;color:var(--sub);line-height:2.2}
-footer a{color:var(--gold);text-decoration:none}
+footer a{color:#8B6914;text-decoration:none;min-height:44px;display:inline-flex;align-items:center;padding:4px 0}
 footer a:hover{text-decoration:underline}
 .call-btn{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);max-width:400px;width:calc(100% - 40px);padding:14px 20px;background:var(--green);color:#fff;text-align:center;text-decoration:none;border-radius:16px;font-size:1.05rem;font-weight:700;z-index:9998;box-shadow:0 4px 20px rgba(34,197,94,.3);letter-spacing:.3px}
 .call-btn:hover{box-shadow:0 6px 28px rgba(34,197,94,.45)}
@@ -104,7 +104,7 @@ footer a:hover{text-decoration:underline}
 @keyframes sk-pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .countdown{background:linear-gradient(90deg,#4a0000,var(--red));color:#fff;text-align:center;padding:10px 16px;font-size:.85rem;font-weight:600;letter-spacing:.3px}
 .countdown strong{color:var(--gold);font-size:1.05rem}
-.social-proof{text-align:center;padding:10px;font-size:.82rem;color:var(--sub)}
+.social-proof{text-align:center;padding:10px;font-size:.82rem;color:#444}
 .social-proof strong{color:var(--text)}
 .gallery{margin:20px 0;overflow:hidden}
 .gallery h2{font-size:1rem;font-weight:800;margin-bottom:12px;color:var(--text);padding-left:2px}
