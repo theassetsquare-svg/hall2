@@ -1,17 +1,19 @@
 # 일산명월관요정
-> 경기도 일산에 위치한 전통 한정식 요정. 가야금 공연과 열다섯 가지 코스 한정식을 경험하는 곳.
+> 경기도 일산에 위치한 전통 한정식 요정. 15가지 코스 한정식과 가야금 라이브 공연, 완전 프라이빗 개인실을 갖춘 접대 전문 공간.
 
 대표키워드: 일산명월관요정, 일산 요정, 일산 한정식, 명월관
 전화예약: 010-3695-4929 (신실장)
+영업시간: 월~토 17:00~02:00
+주소: 경기도 일산
 
-## 페이지
-메인: https://hall2-cua.pages.dev/
-처음 가본 날: https://hall2-cua.pages.dev/blog/first/
-비즈니스 접대: https://hall2-cua.pages.dev/blog/business/
-한정식 리뷰: https://hall2-cua.pages.dev/blog/food/
-국악 라이브: https://hall2-cua.pages.dev/blog/music/
-VIP 접대: https://hall2-cua.pages.dev/blog/vip/
-장소 비교: https://hall2-cua.pages.dev/blog/compare/
-계절별 매력: https://hall2-cua.pages.dev/blog/seasonal/
-프라이빗 공간: https://hall2-cua.pages.dev/blog/private/
-끝나고 어디 갈까: https://hall2-cua.pages.dev/blog/after/
+## Pages
+- [홈페이지 — 일산명월관요정](https://hall2-cua.pages.dev/)
+- [처음 가본 날 — 그 충격을 기록한다](https://hall2-cua.pages.dev/blog/first/)
+- [비즈니스 접대 장소로 여기를 골랐다](https://hall2-cua.pages.dev/blog/business/)
+- [15가지 한정식 솔직 리뷰](https://hall2-cua.pages.dev/blog/food/)
+- [국악 라이브에 소름 돋았다](https://hall2-cua.pages.dev/blog/music/)
+- [VIP 접대를 여기에서 했다](https://hall2-cua.pages.dev/blog/vip/)
+- [호텔 레스토랑 뷔페 뭐가 나을까](https://hall2-cua.pages.dev/blog/compare/)
+- [계절마다 달라지는 그곳의 얼굴](https://hall2-cua.pages.dev/blog/seasonal/)
+- [눈치 볼 필요 없는 프라이빗 공간](https://hall2-cua.pages.dev/blog/private/)
+- [끝나고 어디 갈까 — 동선 가이드](https://hall2-cua.pages.dev/blog/after/)
