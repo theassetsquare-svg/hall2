@@ -69,6 +69,12 @@ footer a:hover{text-decoration:underline}
 .call-btn:hover{box-shadow:0 6px 28px rgba(34,197,94,.45)}
 .fade-in{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
 .fade-in.show{opacity:1;transform:translateY(0)}
+/* Pull Quote — 매거진 스타일 */
+.pull-quote{font-size:1.5rem;font-style:italic;font-weight:700;color:var(--gold);text-align:center;padding:28px 20px;margin:24px 0;line-height:1.6;border-top:2px solid rgba(201,169,110,.2);border-bottom:2px solid rgba(201,169,110,.2);letter-spacing:.5px}
+/* Mid CTA — 40% 스크롤 위치 */
+.mid-cta{margin:20px 0}
+.mid-cta a{display:block;max-width:720px;margin:0 auto;padding:16px 20px;background:#7C3AED;color:#fff;text-align:center;text-decoration:none;border-radius:14px;font-size:1.05rem;font-weight:800;box-shadow:0 4px 20px rgba(124,58,237,.35);transition:box-shadow .2s;min-height:56px;display:flex;align-items:center;justify-content:center;letter-spacing:.3px}
+.mid-cta a:hover{box-shadow:0 6px 28px rgba(124,58,237,.5)}
 .divider{width:40px;height:2px;background:var(--gold);margin:28px auto;opacity:.4}
 .mood-panel{position:relative;width:100%;height:220px;border-radius:var(--r);margin:20px 0;overflow:hidden;display:flex;align-items:flex-end}
 .mood-panel::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.1) 60%,transparent 100%)}
@@ -141,7 +147,7 @@ footer a:hover{text-decoration:underline}
 .exit-mobile-text span{display:block;font-size:.78rem;font-weight:400;color:var(--sub);margin-top:2px}
 .exit-mobile-btn{padding:10px 18px;background:#7C3AED;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;white-space:nowrap;min-height:44px}
 .exit-mobile-close{width:32px;height:32px;background:none;border:none;font-size:1.2rem;color:var(--sub);cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
-@media(max-width:480px){.hero-banner h1{font-size:1.4rem}.hero-banner{padding:36px 16px 30px}.container{padding:14px 12px}.article{padding:22px 16px}.article h1{font-size:1.25rem}.mood-img{height:160px}.mood-panel{height:180px}.card{padding:18px}.ba-row{flex-direction:column}.gallery-slide{flex:0 0 260px}.bottom-cta{padding:0 12px}}
+@media(max-width:480px){.hero-banner h1{font-size:1.4rem}.hero-banner{padding:36px 16px 30px}.container{padding:14px 12px}.article{padding:22px 16px}.article h1{font-size:1.25rem}.mood-img{height:160px}.mood-panel{height:180px}.card{padding:18px}.ba-row{flex-direction:column}.gallery-slide{flex:0 0 260px}.bottom-cta{padding:0 12px}.pull-quote{font-size:1.25rem;padding:22px 16px}}
 
 /* ══ Engagement Engine Styles ══ */
 .eg-hud{position:fixed;top:48px;right:12px;z-index:9000;background:var(--white);border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.12);padding:10px 14px;min-width:140px;font-size:.75rem}
