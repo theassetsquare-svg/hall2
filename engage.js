@@ -27,10 +27,12 @@ var KEY='mmg_e4';
 var XP_LV=120;
 var cur=ARTICLES.find(function(a){return a.p===location.pathname})||ARTICLES[0];
 
-/* ── 전역 타이머 추적 (cleanup용) ── */
+/* ── 전역 타이머 + 리스너 추적 (cleanup용) ── */
 var _timers=[];
+var _listeners=[];
 function safeInterval(fn,ms){var id=setInterval(fn,ms);_timers.push(id);return id}
-function clearAllTimers(){_timers.forEach(function(id){clearInterval(id)});_timers=[]}
+function addListener(target,evt,fn,opts){target.addEventListener(evt,fn,opts);_listeners.push({t:target,e:evt,f:fn,o:opts})}
+function cleanupAll(){_timers.forEach(function(id){clearInterval(id)});_timers=[];_listeners.forEach(function(l){l.t.removeEventListener(l.e,l.f,l.o)});_listeners=[]}
 
 /* ── State ── */
 function gs(){try{var s=JSON.parse(localStorage.getItem(KEY)||'{}');
@@ -134,7 +136,7 @@ function checkStreak(){
 function initScrollReward(){
   var milestones=[25,50,75,100];var fired={};
   var rewards=['궁금증 해결 중...','절반이나 읽었다!','거의 다 왔다!','끝까지 읽었다!'];
-  window.addEventListener('scroll',function(){
+  addListener(window,'scroll',function(){
     try{
       var h=document.documentElement;
       var pct=Math.round(h.scrollTop/(h.scrollHeight-h.clientHeight)*100);
@@ -189,7 +191,7 @@ function initAutoPlay(){
   document.body.appendChild(ap);
 
   var shown=false,timer=null,count=0,total=8;
-  window.addEventListener('scroll',function(){
+  addListener(window,'scroll',function(){
     try{
       var h=document.documentElement;
       var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
@@ -333,7 +335,7 @@ function initTimeTracker(){
   var saveCounter=0;
 
   /* 비활성 탭이면 타이머 일시정지 */
-  document.addEventListener('visibilitychange',function(){
+  addListener(document,'visibilitychange',function(){
     paused=document.hidden;
   });
 
@@ -462,7 +464,7 @@ function initExitIntent(){
 /* ══════════════════════════════
    페이지 이탈 시 전체 cleanup
    ══════════════════════════════ */
-window.addEventListener('beforeunload',function(){clearAllTimers()});
+window.addEventListener('beforeunload',function(){cleanupAll()});
 
 /* ══════════════════════════════
    INIT — 각 모듈 독립 try-catch
