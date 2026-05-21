@@ -2,6 +2,13 @@
 window.onerror=function(m,u,l,c,e){console.error('global:',m,u,l);return true};
 window.addEventListener('unhandledrejection',function(e){e.preventDefault();console.error('promise:',e.reason)});
 
+/* Service Worker 등록 — PWA + 오프라인 캐시 (Round 4) */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(function(e){console.error('sw:',e)});
+  });
+}
+
 (function(){
 "use strict";
 

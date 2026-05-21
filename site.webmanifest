@@ -1,0 +1,48 @@
+{
+  "name": "일산명월관요정",
+  "short_name": "명월관",
+  "description": "일산 전통 한정식 요정 — 15코스 한정식, 가야금 라이브, 완전 프라이빗 룸",
+  "lang": "ko-KR",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0a",
+  "theme_color": "#8B0000",
+  "categories": ["food", "lifestyle", "business"],
+  "icons": [
+    { "src": "/og-image.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/og-image.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/og-image.png", "sizes": "1200x1200", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "전화 예약",
+      "short_name": "전화",
+      "description": "신실장에게 바로 전화",
+      "url": "tel:010-3695-4929",
+      "icons": [{ "src": "/og-image.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "카카오톡 문의",
+      "short_name": "카톡",
+      "description": "카카오톡 besta12 문의",
+      "url": "https://open.kakao.com/o/besta12",
+      "icons": [{ "src": "/og-image.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "첫 방문 가이드",
+      "short_name": "첫방문",
+      "description": "처음 가는 사람 가이드",
+      "url": "/blog/first/",
+      "icons": [{ "src": "/og-first.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "15코스 한정식",
+      "short_name": "코스",
+      "description": "전복죽부터 솥밥까지 솔직 리뷰",
+      "url": "/blog/food/",
+      "icons": [{ "src": "/og-food.png", "sizes": "192x192" }]
+    }
+  ]
+}
