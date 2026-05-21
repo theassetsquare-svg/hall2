@@ -1,0 +1,91 @@
+name: Schema.org JSON-LD Validate
+
+on:
+  schedule:
+    # 매일 KST 13:00 = UTC 04:00
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate JSON-LD on every page
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const FILES = [
+            'index.html',
+            'blog/first/index.html',
+            'blog/business/index.html',
+            'blog/food/index.html',
+            'blog/music/index.html',
+            'blog/vip/index.html',
+            'blog/compare/index.html',
+            'blog/seasonal/index.html',
+            'blog/private/index.html',
+            'blog/after/index.html',
+          ];
+
+          const REQUIRED_TYPES_HOME = ['Restaurant','LocalBusiness','NightClub','BarOrPub','FAQPage','WebSite','Organization'];
+          const REQUIRED_TYPES_BLOG = ['Restaurant','LocalBusiness','NightClub','BarOrPub','FAQPage','BreadcrumbList','BlogPosting'];
+
+          let fail = 0;
+          for (const f of FILES) {
+            const html = fs.readFileSync(f, 'utf8');
+            const matches = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)];
+            const types = new Set();
+            for (const m of matches) {
+              try {
+                const j = JSON.parse(m[1]);
+                const collect = (o) => {
+                  if (!o) return;
+                  if (Array.isArray(o)) { o.forEach(collect); return; }
+                  if (typeof o !== 'object') return;
+                  if (o['@type']) {
+                    const t = Array.isArray(o['@type']) ? o['@type'] : [o['@type']];
+                    t.forEach(x => types.add(x));
+                  }
+                  if (o['@graph']) collect(o['@graph']);
+                };
+                collect(j);
+              } catch (e) {
+                console.log(`::error file=${f}::Invalid JSON-LD — ${e.message}`);
+                fail++;
+              }
+            }
+            const need = f === 'index.html' ? REQUIRED_TYPES_HOME : REQUIRED_TYPES_BLOG;
+            const missing = need.filter(t => !types.has(t));
+            if (missing.length) {
+              console.log(`::error file=${f}::Missing required @type: ${missing.join(', ')} | found: [${[...types].join(', ')}]`);
+              fail++;
+            } else {
+              console.log(`OK ${f} — types: ${[...types].join(', ')}`);
+            }
+
+            // 가짜 별점 검사 (영구 룰)
+            if (/aggregateRating/i.test(html)) {
+              console.log(`::error file=${f}::Forbidden AggregateRating found (영구 룰 위반)`);
+              fail++;
+            }
+          }
+
+          if (fail > 0) { console.log(`Failed: ${fail}`); process.exit(1); }
+          console.log('All schemas valid + no fake ratings.');
+          EOF

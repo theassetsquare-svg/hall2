@@ -1,0 +1,61 @@
+name: Live Health Check (6h)
+
+on:
+  schedule:
+    # 매 6시간 (KST 00, 06, 12, 18)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl 11 pages + 6 SEO files
+        run: |
+          set +e
+          fail=0
+          check () {
+            url=$1; expect=$2
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -A "GitHub-HealthBot" "$url")
+            if [ "$code" = "$expect" ]; then
+              echo "OK [$code] $url"
+            else
+              echo "::error::FAIL [$code, expected $expect] $url"
+              fail=$((fail+1))
+            fi
+          }
+
+          BASE=https://hall2-cua.pages.dev
+          for p in / /blog/first/ /blog/business/ /blog/food/ /blog/music/ /blog/vip/ /blog/compare/ /blog/seasonal/ /blog/private/ /blog/after/; do
+            check "${BASE}${p}" 200
+          done
+
+          check "${BASE}/sitemap.xml" 200
+          check "${BASE}/robots.txt" 200
+          check "${BASE}/llms.txt" 200
+          check "${BASE}/rss.xml" 200
+          check "${BASE}/site.webmanifest" 200
+          check "${BASE}/sw.js" 200
+
+          # 검증: 모든 페이지에 후킹 제목 + canonical hall2-cua
+          for p in / /blog/first/ /blog/business/ /blog/food/ /blog/music/ /blog/vip/ /blog/compare/ /blog/seasonal/ /blog/private/ /blog/after/; do
+            html=$(curl -sS "${BASE}${p}")
+            if ! echo "$html" | grep -q "hall2-cua.pages.dev"; then
+              echo "::error::canonical missing on ${p}"; fail=$((fail+1))
+            fi
+            if echo "$html" | grep -q "aggregateRating"; then
+              echo "::error::Fake AggregateRating found on ${p} (영구 룰 위반)"; fail=$((fail+1))
+            fi
+            if ! echo "$html" | grep -q "FAQPage"; then
+              echo "::warning::FAQPage missing on ${p}"
+            fi
+          done
+
+          if [ $fail -gt 0 ]; then
+            echo "::error::$fail check(s) failed"
+            exit 1
+          fi
+          echo "All live checks passed."

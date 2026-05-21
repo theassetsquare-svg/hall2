@@ -1,0 +1,58 @@
+name: SEO Daily Cron (sitemap lastmod + IndexNow ping)
+
+on:
+  schedule:
+    # 매일 KST 12:00 = UTC 03:00
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-sitemap-and-ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update sitemap.xml lastmod to today (KST)
+        run: |
+          TODAY=$(TZ='Asia/Seoul' date +%F)
+          echo "Today (KST): $TODAY"
+          sed -i -E "s|<lastmod>[0-9]{4}-[0-9]{2}-[0-9]{2}</lastmod>|<lastmod>${TODAY}</lastmod>|g" sitemap.xml
+          grep -c "$TODAY" sitemap.xml || (echo "::error::lastmod not updated" && exit 1)
+
+      - name: Commit sitemap if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet sitemap.xml; then
+            git add sitemap.xml
+            git commit -m "chore(seo): daily sitemap lastmod refresh"
+            git push
+          else
+            echo "sitemap unchanged — skipping commit"
+          fi
+
+      - name: IndexNow ping (Bing + Yandex + Naver)
+        run: |
+          URLS='["https://hall2-cua.pages.dev/","https://hall2-cua.pages.dev/blog/first/","https://hall2-cua.pages.dev/blog/business/","https://hall2-cua.pages.dev/blog/food/","https://hall2-cua.pages.dev/blog/music/","https://hall2-cua.pages.dev/blog/vip/","https://hall2-cua.pages.dev/blog/compare/","https://hall2-cua.pages.dev/blog/seasonal/","https://hall2-cua.pages.dev/blog/private/","https://hall2-cua.pages.dev/blog/after/"]'
+          KEY="${{ secrets.INDEXNOW_KEY }}"
+          if [ -z "$KEY" ]; then
+            echo "::warning::INDEXNOW_KEY secret not set — skipping IndexNow ping"
+            exit 0
+          fi
+          BODY=$(jq -n --arg host "hall2-cua.pages.dev" --arg key "$KEY" --argjson urls "$URLS" \
+            '{host:$host, key:$key, keyLocation:("https://hall2-cua.pages.dev/"+$key+".txt"), urlList:$urls}')
+          for ep in api.indexnow.org www.bing.com yandex.com searchadvisor.naver.com; do
+            echo "→ $ep"
+            curl -sS -o /dev/null -w "%{http_code}\n" -X POST "https://${ep}/indexnow" \
+              -H 'Content-Type: application/json' -d "$BODY" || true
+          done
+
+      - name: Google ping sitemap
+        run: |
+          curl -sS -o /dev/null -w "google: %{http_code}\n" \
+            "https://www.google.com/ping?sitemap=https://hall2-cua.pages.dev/sitemap.xml" || true
+          curl -sS -o /dev/null -w "bing: %{http_code}\n" \
+            "https://www.bing.com/ping?sitemap=https://hall2-cua.pages.dev/sitemap.xml" || true
