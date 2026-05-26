@@ -1,0 +1,88 @@
+name: Duplicate Title/Meta Detector (daily)
+
+on:
+  schedule:
+    # 매일 KST 11:00 = UTC 02:00 — 중복 페널티 자동 감지
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+
+permissions:
+  contents: read
+
+jobs:
+  dup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect duplicate titles / metas / canonical
+        run: |
+          python3 <<'PYEOF'
+          import re, sys, os
+          from collections import Counter
+
+          FILES = [
+            'index.html',
+            'blog/first/index.html','blog/business/index.html','blog/food/index.html',
+            'blog/music/index.html','blog/vip/index.html','blog/compare/index.html',
+            'blog/seasonal/index.html','blog/private/index.html','blog/after/index.html',
+          ]
+          titles = {}
+          metas = {}
+          canons = {}
+          dup_words = {}
+          fail = 0
+
+          for f in FILES:
+              if not os.path.exists(f): continue
+              with open(f, encoding='utf-8') as fh: html = fh.read()
+              t = re.search(r'<title>([^<]*)</title>', html)
+              m = re.search(r'<meta name="description" content="([^"]*)"', html)
+              c = re.search(r'<link rel="canonical" href="([^"]*)"', html)
+              if t: titles[f] = t.group(1).strip()
+              if m: metas[f] = m.group(1).strip()
+              if c: canons[f] = c.group(1).strip()
+
+              # Same word twice in title check
+              if t:
+                  words = re.findall(r'[가-힣]+', t.group(1))
+                  cnt = Counter(words)
+                  dups = [w for w, n in cnt.items() if n > 1 and len(w) >= 2]
+                  if dups:
+                      print(f"::error file={f}::Title has duplicate words: {dups}")
+                      fail += 1
+
+          # Cross-page duplicate detection
+          title_counts = Counter(titles.values())
+          meta_counts = Counter(metas.values())
+          canon_counts = Counter(canons.values())
+
+          for v, n in title_counts.items():
+              if n > 1:
+                  files = [f for f, t in titles.items() if t == v]
+                  print(f"::error::Duplicate title across {n} files: '{v}' — {files}")
+                  fail += 1
+          for v, n in meta_counts.items():
+              if n > 1:
+                  files = [f for f, m in metas.items() if m == v]
+                  print(f"::error::Duplicate meta description across {n} files: '{v[:50]}...' — {files}")
+                  fail += 1
+          for v, n in canon_counts.items():
+              if n > 1:
+                  files = [f for f, c in canons.items() if c == v]
+                  print(f"::error::Duplicate canonical across {n} files: '{v}' — {files}")
+                  fail += 1
+
+          print(f"\nChecked {len(titles)} pages.")
+          print(f"  Unique titles:   {len(set(titles.values()))}")
+          print(f"  Unique metas:    {len(set(metas.values()))}")
+          print(f"  Unique canon:    {len(set(canons.values()))}")
+          if fail > 0:
+              print(f"::error::{fail} duplicate(s) found")
+              sys.exit(1)
+          print("All titles/metas/canonical URLs are unique.")
+          PYEOF

@@ -233,3 +233,109 @@ footer a:hover{text-decoration:underline}
 .faq details p{font-size:.92rem;color:var(--sub);line-height:1.75;padding:8px 0 4px 22px;word-break:keep-all}
 
 @media(max-width:480px){.eg-hud{top:50px;right:8px;padding:8px 10px;min-width:120px;font-size:.68rem}.eg-toast{max-width:220px;font-size:.78rem}.eg-autoplay{bottom:82px}.eg-ap-go,.eg-ap-cancel{min-height:44px}}
+
+/* ══ 2026 UI/UX Patterns — World-class baseline ══ */
+/* Fluid typography (clamp) */
+@supports(font-size:clamp(1rem,2vw,2rem)){
+  body{font-size:clamp(15px,1vw + 13px,17px)}
+  .hero-banner h1{font-size:clamp(1.4rem,4vw + 0.5rem,2.2rem)}
+  .article h1{font-size:clamp(1.25rem,2.5vw + 0.5rem,1.8rem)}
+  .pull-quote{font-size:clamp(1.15rem,2vw + 0.6rem,1.6rem)}
+}
+/* Aspect-ratio for media (prevents CLS) */
+.mood-img,.mood-panel{aspect-ratio:16/10}
+.gallery-half{aspect-ratio:1/1}
+/* content-visibility — off-screen rendering perf */
+.faq,.review-hl,.before-after,.gallery,.guide,.course-flow,.vote-section,.type-quiz{content-visibility:auto;contain-intrinsic-size:auto 400px}
+/* AAA focus-visible (keyboard a11y) */
+*:focus{outline:none}
+*:focus-visible{outline:3px solid #FFD700;outline-offset:3px;border-radius:6px}
+.card a:focus-visible,.share-btn:focus-visible,.call-btn:focus-visible,.bottom-cta a:focus-visible,.mid-cta a:focus-visible,.vote-btn:focus-visible,.tq-opt:focus-visible,.exit-mobile-btn:focus-visible{outline:3px solid #FFD700;outline-offset:4px;box-shadow:0 0 0 6px rgba(255,215,0,.2)}
+/* Reduced motion (a11y) */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;scroll-behavior:auto !important}
+  .fade-in{opacity:1 !important;transform:none !important}
+}
+/* Dark mode (prefers-color-scheme) */
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0f0f10;--white:#1a1a1c;--text:#f0f0f0;--sub:#a8a8a8;--shadow:0 2px 12px rgba(0,0,0,.5)}
+  body{background:var(--bg);color:var(--text)}
+  .nav{background:var(--white);border-bottom-color:#2a2a2c}
+  .card,.article,.vote-section,.quiz-section,.review-hl,.before-after,.type-quiz,.faq,.secret,.eg-slot,.review-hl{background:var(--white)}
+  .card-title,.article p,.article h1{color:var(--text)}
+  .skeleton .sk-line,.skeleton .sk-img,.sk-img{background:#2a2a2c}
+  .quiz-q,.eg-reel{background:#1f1f21}
+  .tq-opt,.quiz-opt{background:var(--white);color:var(--text);border-color:#2a2a2c}
+  .ba-before{background:rgba(139,0,0,.18)}
+  .ba-after{background:rgba(201,169,110,.18)}
+  .countdown{background:linear-gradient(90deg,#3a0000,var(--red))}
+  .social-proof{color:#c0c0c0}
+  .exit-mobile{background:var(--white)}
+  .exit-mobile-text,.faq summary{color:var(--text)}
+  .review-text{color:var(--text)}
+  details p,.faq details p{color:var(--sub)}
+}
+/* Print styles (a11y completeness) */
+@media print{
+  .nav,.call-btn,.bottom-cta,.exit-mobile,.share-wrap,.mid-cta,.eg-hud,.eg-toast,.eg-autoplay,#progress{display:none !important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .card,.article{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  a[href]::after{content:" (" attr(href) ")";font-size:9pt;color:#555}
+}
+/* High contrast / forced-colors mode */
+@media(forced-colors:active){
+  .card,.article,.faq,.vote-btn,.tq-opt{border:1px solid CanvasText}
+  .card-tag,.ba-label{forced-color-adjust:auto}
+}
+/* View transitions (next-gen page nav) */
+@supports(view-transition-name:auto){
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s}
+}
+/* Better mobile tap highlight */
+a,button{-webkit-tap-highlight-color:rgba(201,169,110,.25);touch-action:manipulation}
+/* Visually hidden — for SR labels */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Skip-link (keyboard a11y) */
+.skip-link{position:absolute;top:-100px;left:0;background:var(--gold);color:#fff;padding:10px 16px;z-index:99999;text-decoration:none;font-weight:700;border-radius:0 0 6px 0}
+.skip-link:focus{top:0}
+/* Selection */
+::selection{background:var(--gold);color:#fff}
+/* Scrollbar polish (desktop) */
+@media(min-width:768px){
+  html{scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
+  ::-webkit-scrollbar-track{background:transparent}
+}
+/* Container queries — gallery responsive */
+@container(max-width:340px){.gallery-slide{flex:0 0 240px}}
+/* Better image rendering on retina */
+img{image-rendering:-webkit-optimize-contrast}
+/* Tap target spacing safety (CLS prevention) */
+button,a.call-btn,a.share-btn,.vote-btn,.tq-opt,.quiz-opt{user-select:none;-webkit-user-select:none}
+/* Glassmorphism — nav on scroll (subtle premium) */
+@supports(backdrop-filter:blur(10px)){
+  .nav{backdrop-filter:saturate(180%) blur(10px);background:color-mix(in srgb,var(--white) 85%,transparent)}
+  @media(prefers-color-scheme:dark){.nav{background:color-mix(in srgb,var(--white) 85%,transparent)}}
+}
+/* Premium pull-quote on dark */
+@media(prefers-color-scheme:dark){.pull-quote{color:#e8c882;border-top-color:rgba(232,200,130,.3);border-bottom-color:rgba(232,200,130,.3)}}
+/* Larger desktop typography (>=1024px) */
+@media(min-width:1024px){
+  .container{max-width:780px;padding:28px 20px}
+  .article{padding:40px 36px}
+  .hero-banner{padding:60px 24px 48px}
+  .article p{font-size:1.05rem;line-height:1.85}
+  .faq details p{font-size:.95rem}
+}
+/* Loading shimmer (modern skeleton) */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton .sk-line,.skeleton .sk-img{background:linear-gradient(90deg,#eee 25%,#f5f5f5 50%,#eee 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
+@media(prefers-color-scheme:dark){.skeleton .sk-line,.skeleton .sk-img{background:linear-gradient(90deg,#1f1f21 25%,#2a2a2c 50%,#1f1f21 75%);background-size:200% 100%}}
+/* Reading progress bar — enhanced */
+#progress{background:linear-gradient(90deg,var(--gold) 0%,#e8c882 50%,var(--gold) 100%);box-shadow:0 0 8px rgba(201,169,110,.5)}
+/* Subtle entrance on cards (when supported, never breaks) */
+@supports(animation-timeline:scroll()){
+  @keyframes card-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .card{animation:card-rise linear both;animation-timeline:view();animation-range:cover 0% cover 30%}
+}

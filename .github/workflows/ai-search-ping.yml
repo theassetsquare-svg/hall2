@@ -1,0 +1,65 @@
+name: AI Search Engine Notify (daily)
+
+on:
+  schedule:
+    # 매일 KST 14:00 = UTC 05:00 — AI 검색 엔진에 sitemap/llms.txt 핑
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ai-ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping AI-aware search & sitemap
+        run: |
+          set +e
+          BASE=https://hall2-cua.pages.dev
+          echo "=== Sitemap pings ==="
+          curl -sS -o /dev/null -w "google sitemap: %{http_code}\n" -A "Mozilla/5.0" \
+            "https://www.google.com/ping?sitemap=${BASE}/sitemap.xml" || true
+          curl -sS -o /dev/null -w "bing sitemap: %{http_code}\n" -A "Mozilla/5.0" \
+            "https://www.bing.com/ping?sitemap=${BASE}/sitemap.xml" || true
+          curl -sS -o /dev/null -w "yandex sitemap: %{http_code}\n" -A "Mozilla/5.0" \
+            "https://webmaster.yandex.com/ping?sitemap=${BASE}/sitemap.xml" || true
+
+          echo ""
+          echo "=== Verify AI bot accessibility ==="
+          for UA in "Mozilla/5.0 (compatible; GPTBot/1.0; +https://openai.com/gptbot)" \
+                    "Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)" \
+                    "Mozilla/5.0 (compatible; ClaudeBot/1.0; +http://www.anthropic.com/claudebot)" \
+                    "Mozilla/5.0 (compatible; Google-Extended)" \
+                    "Mozilla/5.0 (compatible; CCBot/2.0; +http://commoncrawl.org/faq/)" \
+                    "Mozilla/5.0 (compatible; YandexBot/3.0)" \
+                    "Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/spd)" \
+                    "Mozilla/5.0 (compatible; Daum/4.1; +http://cs.daum.net/faq/15/4118.html)" ; do
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -A "$UA" "${BASE}/")
+            shortname=$(echo "$UA" | grep -oE '[A-Za-z]+Bot|GPTBot|Yeti|Daum|Perplexity|Claude|Google-Extended|CCBot' | head -1)
+            echo "  ${shortname:-bot}: HTTP $code"
+            if [ "$code" != "200" ]; then
+              echo "::error::AI bot ${shortname} blocked (HTTP $code)"
+            fi
+          done
+
+          echo ""
+          echo "=== Verify llms.txt + robots.txt + ai.txt accessibility ==="
+          for path in /llms.txt /robots.txt /sitemap.xml /rss.xml; do
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -A "Mozilla/5.0" "${BASE}${path}")
+            echo "  ${path}: HTTP $code"
+            if [ "$code" != "200" ]; then
+              echo "::error::${path} not accessible"
+            fi
+          done
+
+          echo ""
+          echo "=== Korean search engines (Naver/Daum) verify ==="
+          for path in / /blog/first/ /blog/business/ /blog/food/ /blog/music/ /blog/vip/ /blog/compare/ /blog/seasonal/ /blog/private/ /blog/after/; do
+            code=$(curl -sS -o /dev/null -w "%{http_code}" -A "Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/spd)" "${BASE}${path}")
+            if [ "$code" != "200" ]; then
+              echo "::error::Naver Yeti blocked on ${path} (HTTP $code)"
+            fi
+          done
+
+          echo "AI search ping complete."

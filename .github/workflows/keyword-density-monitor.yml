@@ -1,0 +1,77 @@
+name: Keyword Density Monitor (6h)
+
+on:
+  schedule:
+    # 매 6시간 (KST 03, 09, 15, 21) — 스터핑 자동 감지
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+
+permissions:
+  contents: read
+
+jobs:
+  density:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Measure body keyword density (per 1000 chars)
+        run: |
+          python3 <<'PYEOF'
+          import re, sys, os
+
+          FILES = [
+            'index.html',
+            'blog/first/index.html','blog/business/index.html','blog/food/index.html',
+            'blog/music/index.html','blog/vip/index.html','blog/compare/index.html',
+            'blog/seasonal/index.html','blog/private/index.html','blog/after/index.html',
+          ]
+          # CLAUDE.md: 5-7 per 1000 chars (1.5-2.5% by char-density)
+          MIN_PER_1K = 1.5   # under = thin content
+          MAX_PER_1K = 8.0   # over = stuffing
+
+          fail = 0
+          warn = 0
+          print(f"{'PAGE':<35} {'BODY':>6} {'명월관':>8} {'요정':>6} {'명월관/1k':>10} {'STATUS':>10}")
+          print('-' * 80)
+
+          for f in FILES:
+              if not os.path.exists(f): continue
+              with open(f, encoding='utf-8') as fh: html = fh.read()
+              m = re.search(r'<body[^>]*>(.*?)</body>', html, re.DOTALL)
+              body = m.group(1) if m else html
+              body = re.sub(r'<script.*?</script>', '', body, flags=re.DOTALL)
+              body = re.sub(r'<style.*?</style>', '', body, flags=re.DOTALL)
+              text = re.sub(r'<[^>]+>', ' ', body)
+              text = re.sub(r'\s+', ' ', text).strip()
+              total = len(text)
+              if total == 0: continue
+              k_mw = len(re.findall('일산명월관', text))   # incl 요정
+              k_yj = len(re.findall('일산요정', text))     # standalone
+              per_1k = k_mw * 1000 / total
+              status = 'OK'
+              if per_1k > MAX_PER_1K:
+                  status = 'STUFFING'
+                  fail += 1
+                  print(f"::error file={f}::keyword density {per_1k:.2f}/1k exceeds max {MAX_PER_1K}")
+              elif per_1k < MIN_PER_1K:
+                  status = 'THIN'
+                  warn += 1
+                  print(f"::warning file={f}::keyword density {per_1k:.2f}/1k below min {MIN_PER_1K}")
+              print(f"{f:<35} {total:>6} {k_mw:>8} {k_yj:>6} {per_1k:>10.2f} {status:>10}")
+
+          print()
+          print(f"Result: {fail} STUFFING, {warn} THIN")
+          if fail > 0:
+              print('::error::Keyword stuffing detected — manual review required')
+              sys.exit(1)
+          PYEOF
