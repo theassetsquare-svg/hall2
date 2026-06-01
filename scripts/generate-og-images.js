@@ -5,16 +5,16 @@ const fs = require('fs');
 const W = 1200, H = 1200;
 
 const pages = [
-  { file: 'og-image.png', title: '일산명월관요정', sub: '문 열고 들어서면, 시간이 멈춘다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-first.png', title: '처음 가본 날', sub: '솔직히 기대 안 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-business.png', title: '비즈니스 접대', sub: '거래처 사장님을 모셔야 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-food.png', title: '15가지 한정식', sub: '하나하나 먹으면서 메모했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-music.png', title: '국악 라이브', sub: '소름 돋았던 그 순간', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-vip.png', title: 'VIP 접대', sub: '회장님을 모셔야 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-compare.png', title: '호텔 vs 한정식', sub: '뭐가 나을까', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-seasonal.png', title: '계절별 매력', sub: '같은 곳, 다른 경험', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-private.png', title: '프라이빗 공간', sub: '남들 눈치 안 보는 곳', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-after.png', title: '마무리 코스', sub: '끝나고 어디 갈까', nick: '신실장', tel: '010-3695-4929' },
+  { file: 'og-image.png', title: '일산명월관요정', sub: '문 열고 들어서면, 시간이 멈춘다', nick: '신실장', tel: '' },
+  { file: 'og-first.png', title: '처음 가본 날', sub: '솔직히 기대 안 했다', nick: '신실장', tel: '' },
+  { file: 'og-business.png', title: '비즈니스 접대', sub: '거래처 사장님을 모셔야 했다', nick: '신실장', tel: '' },
+  { file: 'og-food.png', title: '15가지 한정식', sub: '하나하나 먹으면서 메모했다', nick: '신실장', tel: '' },
+  { file: 'og-music.png', title: '국악 라이브', sub: '소름 돋았던 그 순간', nick: '신실장', tel: '' },
+  { file: 'og-vip.png', title: 'VIP 접대', sub: '회장님을 모셔야 했다', nick: '신실장', tel: '' },
+  { file: 'og-compare.png', title: '호텔 vs 한정식', sub: '뭐가 나을까', nick: '신실장', tel: '' },
+  { file: 'og-seasonal.png', title: '계절별 매력', sub: '같은 곳, 다른 경험', nick: '신실장', tel: '' },
+  { file: 'og-private.png', title: '프라이빗 공간', sub: '남들 눈치 안 보는 곳', nick: '신실장', tel: '' },
+  { file: 'og-after.png', title: '마무리 코스', sub: '끝나고 어디 갈까', nick: '신실장', tel: '' },
 ];
 
 function makeSvg(p) {
