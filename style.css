@@ -339,3 +339,11 @@ button,a.call-btn,a.share-btn,.vote-btn,.tq-opt,.quiz-opt{user-select:none;-webk
   @keyframes card-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
   .card{animation:card-rise linear both;animation-timeline:view();animation-range:cover 0% cover 30%}
 }
+
+/* 한복 여성 실사 사진 */
+.hanbok-figure{margin:24px auto;max-width:340px;text-align:center}
+.hanbok-figure img{width:100%;height:auto;border-radius:var(--r);display:block;box-shadow:var(--shadow)}
+.hanbok-figure figcaption{font-size:.85rem;color:var(--sub);margin-top:8px;line-height:1.5;word-break:keep-all}
+.hanbok-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.hanbok-row .hanbok-figure{margin:0;flex:1 1 200px;max-width:240px}
+@media(max-width:480px){.hanbok-row .hanbok-figure{flex:1 1 100%;max-width:320px}}
