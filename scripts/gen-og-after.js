@@ -351,7 +351,7 @@ ${Array.from({length:12},(_, i)=>{
   filter="url(#goldGlow)"
   letter-spacing="4">일산명월관</text>
 
-<!-- ── SUBTITLE: 신실장 ── overlaid on figure, white bold -->
+<!-- ── SUBTITLE: 일산룸 총책임자 ── overlaid on figure, white bold -->
 <text x="600" y="840"
   text-anchor="middle"
   font-family="'Noto Serif KR','Malgun Gothic','Apple SD Gothic Neo',serif"
@@ -359,7 +359,7 @@ ${Array.from({length:12},(_, i)=>{
   font-weight="900"
   fill="#ffffff"
   filter="url(#whiteGlow)"
-  letter-spacing="24">신 실 장</text>
+  letter-spacing="24">총 책 임 자</text>
 
 </svg>`;
 

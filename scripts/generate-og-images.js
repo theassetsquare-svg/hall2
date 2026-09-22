@@ -5,16 +5,16 @@ const fs = require('fs');
 const W = 1200, H = 1200;
 
 const pages = [
-  { file: 'og-image.png', title: '일산명월관요정', sub: '문 열고 들어서면, 시간이 멈춘다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-first.png', title: '처음 가본 날', sub: '솔직히 기대 안 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-business.png', title: '비즈니스 접대', sub: '거래처 사장님을 모셔야 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-food.png', title: '15가지 한정식', sub: '하나하나 먹으면서 메모했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-music.png', title: '국악 라이브', sub: '소름 돋았던 그 순간', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-vip.png', title: 'VIP 접대', sub: '회장님을 모셔야 했다', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-compare.png', title: '호텔 vs 한정식', sub: '뭐가 나을까', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-seasonal.png', title: '계절별 매력', sub: '같은 곳, 다른 경험', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-private.png', title: '프라이빗 공간', sub: '남들 눈치 안 보는 곳', nick: '신실장', tel: '010-3695-4929' },
-  { file: 'og-after.png', title: '마무리 코스', sub: '끝나고 어디 갈까', nick: '신실장', tel: '010-3695-4929' },
+  { file: 'og-image.png', title: '일산명월관요정', sub: '문 열고 들어서면, 시간이 멈춘다', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-first.png', title: '처음 가본 날', sub: '솔직히 기대 안 했다', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-business.png', title: '비즈니스 접대', sub: '거래처 사장님을 모셔야 했다', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-food.png', title: '15가지 한정식', sub: '하나하나 먹으면서 메모했다', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-music.png', title: '국악 라이브', sub: '소름 돋았던 그 순간', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-vip.png', title: 'VIP 접대', sub: '회장님을 모셔야 했다', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-compare.png', title: '호텔 vs 한정식', sub: '뭐가 나을까', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-seasonal.png', title: '계절별 매력', sub: '같은 곳, 다른 경험', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-private.png', title: '프라이빗 공간', sub: '남들 눈치 안 보는 곳', nick: '일산룸 총책임자', tel: '010-4117-5556' },
+  { file: 'og-after.png', title: '마무리 코스', sub: '끝나고 어디 갈까', nick: '일산룸 총책임자', tel: '010-4117-5556' },
 ];
 
 function makeSvg(p) {
@@ -41,7 +41,7 @@ function makeSvg(p) {
   <!-- 구분선 -->
   <rect x="500" y="240" width="200" height="3" rx="1.5" fill="#C9A96E" opacity="0.5"/>
 
-  <!-- 가운데: 신실장 크게! -->
+  <!-- 가운데: 일산룸 총책임자 크게! -->
   <text x="600" y="520" text-anchor="middle" font-family="sans-serif" font-size="220" font-weight="900" fill="#FFFFFF" opacity="0.95">${p.nick}</text>
 
   <!-- 전화번호 -->
@@ -76,7 +76,7 @@ async function generate(p) {
 }
 
 (async () => {
-  console.log('Generating 1:1 OG images with 신실장...');
+  console.log('Generating 1:1 OG images with 일산룸 총책임자...');
   for (const p of pages) await generate(p);
   console.log(`Done: ${pages.length} images (${W}x${H})`);
 })();
