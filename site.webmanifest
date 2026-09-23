@@ -19,8 +19,8 @@
     {
       "name": "전화 예약",
       "short_name": "전화",
-      "description": "신실장에게 바로 전화",
-      "url": "tel:010-3695-4929",
+      "description": "일산룸 총책임자에게 바로 전화",
+      "url": "tel:010-4117-5556",
       "icons": [{ "src": "/og-image.png", "sizes": "192x192" }]
     },
     {
